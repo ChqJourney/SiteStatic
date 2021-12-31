@@ -2,14 +2,15 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { FiMail,FiMenu } from "react-icons/fi";
+import { FiMail, FiMenu } from "react-icons/fi";
 
 export const Header = () => {
   const router = useRouter();
   const pathName = router.pathname;
   return (
-    <div className="h-16 flex items-center justify-between border-b-2">
-      <div className="ml-4 my-4">
+    <div className="h-16 flex items-center border-b-2">
+      {/* logo block */}
+      <div className="ml-4 my-2 hidden sm:flex">
         <Link href="/" passHref>
           <a>
             <Image
@@ -21,11 +22,24 @@ export const Header = () => {
           </a>
         </Link>
       </div>
-      <div className="flex items-center divide-x-2 divide-sky-500">
+      <div className="ml-2 my-2 flex sm:hidden">
+      <Link href="/" passHref>
+          <a>
+            <Image
+              alt="brand logo"
+              src="/assets/brand-simple.png"
+              width={35}
+              height={30}
+            ></Image>
+          </a>
+        </Link>
+      </div>
+
+      <div className="flex grow items-center ">
         {/* big screen nav */}
-        <nav className="ml-24 flex">
+        <nav className="ml-2 flex sm:ml-24">
           <menu
-            className={`mx-8 font-sans hover:text-sky-500 
+            className={`mx-2 ms:mx-8 font-sans hover:text-sky-500 
           ${
             pathName == "/tutorial"
               ? "hover:underline hover:underline-offset-2 hover:decoration-2 hover:decoration-blue-400"
@@ -35,7 +49,7 @@ export const Header = () => {
             <Link href="/tutorial">Tutorial</Link>
           </menu>
           <menu
-            className={`mx-8 font-sans hover:text-sky-500 
+            className={`mx-2 ms:mx-8 font-sans hover:text-sky-500 
           ${
             pathName == "/tutorial"
               ? "hover:underline hover:underline-offset-2 hover:decoration-2 hover:decoration-blue-400"
@@ -45,7 +59,7 @@ export const Header = () => {
             <Link href="/tools">Tools</Link>
           </menu>
           <menu
-            className={`mx-8 font-sans hover:text-sky-500 
+            className={`mx-2 ms:mx-8 font-sans hover:text-sky-500 
           ${
             pathName == "/about"
               ? "hover:underline hover:underline-offset-2 hover:decoration-2 hover:decoration-blue-400"
@@ -55,18 +69,21 @@ export const Header = () => {
             <Link href="/about">About</Link>
           </menu>
         </nav>
-        {/* small screen nav */}
-        <nav className="ml-8 hidden">small nav</nav>
-        {/* messge block */}
-        <div className=" hidden md:flex items-center mx-8">
-          <FiMail className="text-4xl mx-8 cursor-pointer stroke-orange-500" />
-          <button className="btn-primary w-24 h-10 mx-2">Login</button>
-        </div>
-        <a className="md:hidden px-8">
-          <FiMenu className="text-4xl stroke-orange-500"/>
-          </a>
-          
+
+        
       </div>
+      {/* messge block */}
+      <div className="flex flex-none items-center">
+          <div className=" hidden sm:flex items-center mx-8">
+            <FiMail className="text-4xl mx-8 cursor-pointer stroke-orange-500" />
+            <button className="btn-primary w-24 h-10 mx-2">Login</button>
+          </div>
+          <div className="sm:hidden">
+            <a>
+              <FiMenu className="text-4xl stroke-orange-500" />
+            </a>
+          </div>
+        </div>
     </div>
   );
 };

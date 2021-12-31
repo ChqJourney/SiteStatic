@@ -12,7 +12,7 @@ class MyDocument extends Document {
         <Head>
             
         </Head>
-        <body className='font-sans antialiased text-gray-600 min-h-full flex flex-col'>
+        <body className='font-sans antialiased text-gray-600 min-h-full'>
           <Main />
 
           <NextScript />
