@@ -64,7 +64,7 @@ export default function Home() {
       </div>
       <div className="absolute bg-lime-500 w-48 h-48 right-24 top-64 rounded-full bg-blend-multiply blur-3xl"></div>
         <div className="absolute bg-amber-500 w-48 h-48 my-auto mx-auto left-0 right-0 top-0 bottom-0 rounded-full bg-blend-multiply blur-2xl"></div>
-        <div className="absolute bg-sky-500 w-72 h-72 right-48 top-96 rounded-full bg-blend-multiply blur-2xl"></div>
+        <div className="absolute bg-sky-500 w-72 h-72 right-64 top-96 rounded-full bg-blend-multiply blur-2xl"></div>
     </>
   );
 }
