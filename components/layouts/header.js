@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import Image from "next/image";
+import brand from '../../public/assets/brand-color-nobg.png'
 import Link from "next/link";
 import { useRouter } from "next/router";
 // import { FiMail, FiMenu } from "react-icons/fi";
@@ -22,11 +23,11 @@ export const Header = () => {
   // const navs=navigation.map((v,i)=>{if(v.href===pathName){v.current=true}});
   console.log(pathName);
   return (
-    <Disclosure as="nav" className="">
+    <Disclosure as="nav" className="bg-transparent">
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-            <div className="relative flex items-center justify-between h-16">
+            <div className="relative flex items-center justify-between h-12">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
                 <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
@@ -45,13 +46,16 @@ export const Header = () => {
                     src="assets/brand-simple.svg"
                     alt="Workflow"
                   /> */}
-                  <Link href="/" passHref>
+                  <Link href="/" passHref >
+                    <div className="h-8 w-32 inline-block">
 
-                  <img
+                  <Image src={brand} alt="brand" layout="responsive" />
+                    </div>
+                  {/* <img
                     className="block h-8 w-auto"
-                    src="assets/brand-color.svg"
+                    src="assets/brand-color-nobg.png"
                     alt="Workflow"
-                  />
+                  /> */}
                   </Link>
                 </div>
                 <div className="hidden sm:block sm:ml-6">
@@ -86,6 +90,9 @@ export const Header = () => {
                   <div>
                     <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                       <span className="sr-only">Open user menu</span>
+                      {/* <div className="h8 w-8 inline-block">
+                        <Image alt="adf" layout="responsive" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"/>
+                      </div> */}
                       <img
                         className="h-8 w-8 rounded-full"
                         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -139,7 +146,6 @@ export const Header = () => {
               </div>
             </div>
           </div>
-
           <Disclosure.Panel className="sm:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navigation.map((item) => (
