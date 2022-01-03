@@ -8,3 +8,4 @@ export default function handler(req, res) {
   console.log(ip)
   res.status(200).json({ data:"ddddd",remoteIpAddr:ip})
 }
+``
