@@ -6,5 +6,5 @@ export default function handler(req, res) {
   const ip=getReqRemoteIp(req);
   console.log(req.headers)
   console.log(ip)
-  res.status(200).json({ data:"ddddd",remoteIpAddr:"sfadf"})
+  res.status(200).json({ data:"ddddd",remoteIpAddr:ip})
 }
