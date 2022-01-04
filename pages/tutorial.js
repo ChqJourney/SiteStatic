@@ -22,7 +22,8 @@ function f_check_IP(ip)
    return false;    
 }
 
-export default function Tutorial({message,data}) {
+export default function Tutorial() {
+    const [clientIp,setClientIp]=useState("")
     const [searchIp,setSearchIp]=useState("")
     const [seartchIpInfo,setSearchIpInfo]=useState({ipAddress:"",regions:""})
     const [regionInfo,setRegionInfo]=useState({})
@@ -37,17 +38,24 @@ export default function Tutorial({message,data}) {
         })
     }
     
-    
+    useEffect(()=>{
+        getClientIp().then(data=>setClientIp(data))
+        async function getClientIp() {
+            const res = await fetch("http://122.51.114.20:5555/ipwithaddr");
+            const body = await res.json();
+            return body.data;
+          }
+    },[])
   return (
     <div className="container  py-10 mx-auto justify-center grid grid-cols-4 gap-4">
       <div className="flex text-center col-span-4 justify-center">
         <p className="text-center text-xl">您的IP地址为</p>
-        <div className=" text-xl text-red-300">{data.ipAddress}</div>
+        <div className=" text-xl text-red-300">{clientIp.ipAddress}</div>
         <div className=" text-xl">，</div>
       </div>
       <div className="flex text-center col-span-4 justify-center">
         <p className="text-xl">您位于</p>
-        <div className=" text-sky-800 text-xl">{data.regions}</div>
+        <div className=" text-sky-800 text-xl">{clientIp.regions}</div>
         <div className=" text-xl">！</div>
       </div>
       <div className="flex items-center justify-center col-start-2 col-span-2">
@@ -92,10 +100,4 @@ export default function Tutorial({message,data}) {
   );
 }
 
-export async function getServerSideProps(context) {
-  const res = await fetch("http://122.51.114.20:5555/ipwithaddr");
-  const body = await res.json();
-  return {
-    props: body,
-  };
-}
+
