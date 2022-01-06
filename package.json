@@ -2,7 +2,7 @@
   "name": "photopro",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "export": "next build && next export",
     "production": "next build && next start",

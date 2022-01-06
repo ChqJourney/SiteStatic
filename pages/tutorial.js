@@ -49,7 +49,6 @@ export default function Tutorial() {
         getClientIp().then(res=>setClientIp(res))
         async function getClientIp() {
             const res = await fetch("https://47.104.61.109/ipwithaddr");
-            
             const body = await res.json();
             console.log(body)
             return body.data;
@@ -67,18 +66,18 @@ export default function Tutorial() {
         <div className=" text-sky-800 text-xl">{removezeroInfo(clientIp.regions)}</div>
         <div className=" text-xl">！</div>
       </div>
-      <div className="flex items-center justify-center col-start-2 col-span-2">
+      <div className="flex items-center justify-center col-span-4 md:col-span-2 md:col-start-2 ">
         <input
           type="text"
           name="ipAddress"
           id="ipAddress" onChange={(e)=>setSearchIp(e.target.value)}
-          className="mt-1 h-8 select-auto text-center text-2xl focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-500 px-1 border-2 rounded-md"
+          className="mt-1 h-8 select-auto text-center text-2xl focus:ring-indigo-500 focus:border-indigo-500 block w-48 shadow-sm sm:text-sm border-gray-500 px-1 border-2 rounded-md"
         />
         <button className="mx-2 w-36 h-8 btn-color" onClick={(e)=>searchIpAddr(e,searchIp)}>查询</button>
       </div>
-      <div className=" col-span-2 col-start-2 flex justify-center">
+      <div className="col-span-4 md:col-span-2 md:col-start-2 flex justify-center">
 
-      <p>{removezeroInfo(seartchIpInfo.regions)}</p>
+      <p className="text-2xl text-amber-700">{removezeroInfo(seartchIpInfo.regions)}</p>
       </div>
     </div>
   );
