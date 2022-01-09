@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Canvas = ({draw, height, width,modify}) => {
   const canvas = React.useRef();
@@ -13,8 +13,12 @@ const Canvas = ({draw, height, width,modify}) => {
     }
   });
 
+  
+
   return (
-    <canvas ref={canvas} height={height} width={width} />
+    <canvas className='absolute'  ref={canvas} 
+    
+    height={height} width={width} />
   );
 };
 

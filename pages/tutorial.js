@@ -71,7 +71,7 @@ export default function Tutorial() {
           type="text"
           name="ipAddress"
           id="ipAddress" onChange={(e)=>setSearchIp(e.target.value)}
-          className="mt-1 h-8 select-auto text-center text-2xl focus:ring-indigo-500 focus:border-indigo-500 block w-48 shadow-sm sm:text-sm border-gray-500 px-1 border-2 rounded-md"
+          className="mt-1 h-8 select-auto text-center text-2xl focus:ring-indigo-500 focus:border-indigo-500 block w- shadow-sm sm:text-sm border-gray-500 px-1 border-2 rounded-md"
         />
         <button className="mx-2 w-36 h-8 btn-color" onClick={(e)=>searchIpAddr(e,searchIp)}>查询</button>
       </div>
