@@ -4,7 +4,7 @@ import Canvas from "../components/tools/photoneeCanvas";
 export default function ImagePage() {
   const [imageData, setImageData] = useState({});
   const [clipImageData,setClipImageData]=useState({})
-  const [clipObj,setClipObj]=useState({clipStatus:false,startP:[0,0],endP:[0,0]})
+ 
   function imageSelected(e) {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
@@ -199,55 +199,29 @@ export default function ImagePage() {
   }
   function clipPic(){
       const clip=(ctx)=>{
-          ctx.fillStyle="rgb(0,0,0,0.4)"
+          ctx.fillStyle="rgba(0,0,0,0.4)"
+          ctx.strokeStyle="rgba(0,143,255,1)"
+          ctx.globalCompositeOperation='source-over'
           ctx.fillRect(0,0,imageData.width,imageData.height)
       }
       setClipImageData({
         width: imageData.width,
         height: imageData.height,
-        draw: clip
+        draw: clip,
+        clipStatus:true
       })
-      setClipObj({clipStatus:true,...clipObj})
-  }
-  function mouseDown(e){
-      if(!clipObj.clipStatus){
-          
-          console.log(clipObj)
-      }
-    //   const down=ctx=>{
-    //     // ctx.clearRect(e.clientX,e.clentY,0,0)
-    //   }
-    //   setImageData({...imageData,draw:down})
-  }
-  function mouseMove(e){
-      const move=(ctx)=>{
-          if(clipObj.clipStatus){
-              ctx.clearRect(0,0,e.clientX,e.clientY)
-              clipObj={...clipObj,endP:[e.clientX,e.clientY]}
-            }
-            
-        }
-        if(clipObj.clipStatus){
-            console.log(e)
-            setClipImageData({...clipImageData,draw:move})
-        }
-  }
-  function mouseUp(e){
-    if(clipObj.clipStatus){
-        console.log(e)
-        setClipObj({clipStatus:false,...clipObj,endP:[e.clientX,e.clientY]})
-    }else{
-        console.log(e)
-        setClipObj({clipStatus:true,startP:[e.clientX,e.clientY],endP:[e.clientX,e.clientY]})
-    }
-
-        
+    //   setClipObj({...clipObj,clipStatus:true})
   }
   
+  function fetchCoordinates(obj){
+      
+      console.log(obj)
+  }
   
   return (
-    <div className="container h-screen my-2 mx-auto justify-center">
-      <div className={`w-full bg-purple-400 relative h-5/6 flex items-center justify-center border-2 p-2 min-h-min border-dashed ${clipObj.clipStatus}?"hover:cursor-crosshair":""`}
+    <div className="container h-screen my-2  justify-center">
+      <div 
+       className="w-full bg-purple-400 relative h-5/6 flex items-center justify-center border-2 p-2 min-h-min border-dashed ${clipObj.clipStatus"
       >
         <Canvas
         className="h-full"
@@ -255,7 +229,7 @@ export default function ImagePage() {
           height={imageData.height}
           draw={imageData.draw}
           modify={imageData.modify}
-
+          
         
         />
         <Canvas
@@ -263,7 +237,8 @@ export default function ImagePage() {
           width={clipImageData.width}
           height={clipImageData.height}
           draw={clipImageData.draw}
-          modify={clipImageData.modify}
+          clipStatus={true}
+          popup={fetchCoordinates}
         />
       </div>
       <div className="flex w-full items-center justify-center">
@@ -283,6 +258,7 @@ export default function ImagePage() {
             />
           </label>
         </div>
+        
         <button className="mx-2 btn-color w-48" onClick={changePic}>
           Filter
         </button>
