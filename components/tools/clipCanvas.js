@@ -81,16 +81,15 @@ export const ClipCanvas = ({ withCrop }) => {
   }, [context]);
 
   return (
-    <div className="h-[80%]">
-      <div className="h-full my-2">
+    <div className="min-h-min flex justify-center">
+      
         <div className="relative z-10 flex min-h-min justify-center">
-          <canvas className="border-2" width={400} height={400} ref={effectCanvas}></canvas>
+          <canvas className="absolute top-10 border-2" width={400} height={400} ref={effectCanvas}></canvas>
         </div>
         {/* <div className="absolute inset-0 z-50 flex justify-center">
           <canvas width={300} height={300} ref={picCanvas} />
         </div> */}
-      </div>
-      <div className="relative w-full h-1/12 flex justify-center">
+      <div className="absolute top-3/4 w-full h-1/12 flex justify-center">
         <button className="btn-color w-48 mx-2">Open Picture</button>
         <button className="btn-color w-48 mx-2">Crop Picture</button>
         <button className="btn-color w-48 mx-2">Remove Background</button>
