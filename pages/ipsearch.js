@@ -55,7 +55,7 @@ export default function Tutorial() {
           }
     },[])
   return (
-    <div className="container  py-10 mx-auto justify-center grid grid-cols-4 gap-4">
+    <div className="container py-10 mx-auto justify-center grid grid-cols-4 gap-4">
       <div className="flex text-center col-span-4 justify-center">
         <p className="text-center text-xl">您的IP地址为</p>
         <div className=" text-xl text-red-300">{clientIp.ipAddress}</div>
@@ -77,7 +77,7 @@ export default function Tutorial() {
       </div>
       <div className="col-span-4 md:col-span-2 md:col-start-2 flex justify-center">
 
-      <p className="text-2xl text-amber-700">{removezeroInfo(seartchIpInfo.regions)}</p>
+      <p className="text-2xl h-64 text-amber-700">{removezeroInfo(seartchIpInfo.regions)}</p>
       </div>
     </div>
   );
