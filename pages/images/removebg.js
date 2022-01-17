@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
+import Layout from "../../components/layouts/layout";
 import Canvas from "../../components/tools/canvas";
 
 export default function ImagePage() {
@@ -140,7 +141,7 @@ export default function ImagePage() {
       </div>
       
       
-      <div className="flex w-full items-center justify-center">
+      <div className="flex w-full items-center px-2 justify-center">
         <div className="btn-color flex items-center px-2 my-2">
           <label
             htmlFor="file-upload"
@@ -158,10 +159,17 @@ export default function ImagePage() {
           </label>
         </div>
 
-        <button className="mx-2 btn-color w-48" onClick={removeBackground}>
+        <button className="mx-2 btn-color" onClick={removeBackground}>
           Remove background
         </button>
       </div>
     </div>
   );
+}
+ImagePage.getLayout = function getLayout(page) {
+  return (
+    <Layout>
+      {page}
+    </Layout>
+  )
 }

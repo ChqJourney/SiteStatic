@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import Layout from "../components/layouts/layout";
 
 export default function Home() {
   return (
@@ -67,4 +68,12 @@ export default function Home() {
         <div className="absolute bg-sky-500 w-72 h-72 right-64 top-96 rounded-full bg-blend-multiply blur-2xl"></div>
     </>
   );
+}
+
+Home.getLayout = function getLayout(page) {
+  return (
+    <Layout>
+      {page}
+    </Layout>
+  )
 }
