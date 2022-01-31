@@ -1,3 +1,4 @@
+import Layout from "../../components/layouts/layout"
 
 
 export default function ResizeImg(){
@@ -8,3 +9,10 @@ export default function ResizeImg(){
 }
 
     
+ResizeImg.getLayout = function getLayout(page) {
+    return (
+      <Layout>
+        {page}
+      </Layout>
+    )
+  }

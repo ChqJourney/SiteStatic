@@ -1,0 +1,32 @@
+{
+  "appName": "Online tools",
+  "theme":{
+    "mode":"normal"
+  },
+  "windowTitle": "Various tools you may need",
+  "menus": [
+    { "name": "Tutorial", "href": "/tutorial" },
+    { "name": "Tools", "href": "/tools" },
+    { "name": "About", "href": "/about" }
+  ],
+  "heroTitle": "Tools to accellerate youronline business",
+  "heroDetails": "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.",
+  "panels": [
+    {
+      "title": "remove background",
+      "description": "adfad adfadfa adfadfaa adfa"
+    },
+    {
+      "title": "remove background",
+      "description": "adfad adfadfa adfadfaa adfa"
+    },
+    {
+      "title": "remove background",
+      "description": "adfad adfadfa adfadfaa adfa"
+    },
+    {
+      "title": "remove background",
+      "description": "adfad adfadfa adfadfaa adfa"
+    }
+  ]
+}

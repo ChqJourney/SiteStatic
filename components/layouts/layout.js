@@ -6,8 +6,6 @@ import { Header } from "./header";
 
 
 export default function Layout({ children }) {
-  const [authorized,setAuthorized]=useState(false)
-
   return (
     <>
     <Head>

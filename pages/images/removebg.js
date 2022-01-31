@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Layout from "../../components/layouts/layout";
 import Canvas from "../../components/tools/canvas";
 
-export default function ImagePage() {
+export default function RemoveBg() {
   const [imageData, setImageData] = useState({file:'', width: 500, height: 400,isJobDone:false })
   const [outputUrl,setOutputUrl]=useState({url:'',text:''})
   function imageSelected(e) {
@@ -128,7 +128,7 @@ export default function ImagePage() {
   }
 
   return (
-    <div className="h-full w-full my-2 justify-center min-h-fit">
+    <div className="h-screen w-full my-2 justify-center min-h-fit pl-48 pr-48">
       <div className="w-full  bg-gray-400 grid row-auto justify-center border-2 p-2 min-h-min border-dashed">
         <Canvas
         file={imageData.file}
@@ -166,7 +166,7 @@ export default function ImagePage() {
     </div>
   );
 }
-ImagePage.getLayout = function getLayout(page) {
+RemoveBg.getLayout = function getLayout(page) {
   return (
     <Layout>
       {page}

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Layout from "../../components/layouts/layout";
 
 function removezeroInfo(regions){
   if(!regions){
@@ -31,7 +32,7 @@ function f_check_IP(ip)
    return false;    
 }
 
-export default function Tutorial() {
+export default function IpSearch() {
     const [clientIp,setClientIp]=useState("")
     const [searchIp,setSearchIp]=useState("")
     const [seartchIpInfo,setSearchIpInfo]=useState({ipAddress:"",regions:""})
@@ -84,3 +85,10 @@ export default function Tutorial() {
 }
 
 
+IpSearch.getLayout = function getLayout(page) {
+  return (
+    <Layout>
+      {page}
+    </Layout>
+  )
+}

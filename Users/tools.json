@@ -1,0 +1,30 @@
+[
+    {
+        "id":"image_removebg1",
+        "name":"remove background of images",
+        "description":"simply remove background of pure background color images",
+        "href":"/images/removebg",
+        "icon":""
+    },
+    {
+        "id":"ipsearch",
+        "name":"ip address query",
+        "description":"simply remove background of pure background color images",
+        "href":"/images/removebg",
+        "icon":""
+    },
+    {
+        "id":"image_removebg3",
+        "name":"remove background of images",
+        "description":"simply remove background of pure background color images",
+        "href":"/images/removebg",
+        "icon":""
+    },
+    {
+        "id":"image_removebg4",
+        "name":"remove background of images",
+        "description":"simply remove background of pure background color images",
+        "href":"/images/removebg",
+        "icon":""
+    }
+]

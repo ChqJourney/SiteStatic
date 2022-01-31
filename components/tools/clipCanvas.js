@@ -130,8 +130,8 @@ export const ClipCanvas = ({ withCrop }) => {
   }, [context,maskContext]);
 
   return (
-    <div className="min-h-min flex justify-center">
-      <div ref={father} className="relative z-50 border-2 flex min-h-min justify-center">
+    <div className="min-h-min flex justify-center h-screen pt-10">
+      <div ref={father} className="relative z-50 border-0 flex min-h-min justify-center">
         <canvas
           className={`absolute ${isCrop?" cursor-crosshair":""}`}
           width={size.w}
@@ -140,7 +140,7 @@ export const ClipCanvas = ({ withCrop }) => {
         ></canvas>
           <canvas className="absolute z-10" width={size.w} height={size.h} ref={picCanvas} />
       </div>
-      <div className={`absolute top-3/4 w-full h-1/12 flex justify-center`}>
+      <div className={`absolute bottom-3 w-full h-1/12 flex justify-center`}>
         <div className="btn-color w-48 flex items-center">
           <label
             htmlFor="file-upload"

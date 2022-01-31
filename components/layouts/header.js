@@ -1,4 +1,4 @@
-import React, { Fragment, useLayoutEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import brand from "../../public/assets/brand-color-nobg.png";
 import Link from "next/link";
@@ -25,7 +25,7 @@ export const Header = () => {
     token: "",
     email: "",
   });
-  useLayoutEffect(() => {
+  useEffect(() => {
     const result = checkAuth();
     setAuth(result);
   }, []);
@@ -37,8 +37,8 @@ export const Header = () => {
     <Disclosure as="nav" className="bg-transparent">
       {({ open }) => (
         <>
-          <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-            <div className="relative flex items-center justify-between h-12">
+          <div className="max-w-7xl mx-auto">
+            <div className="relative flex items-center justify-between h-16">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
                 <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
@@ -51,14 +51,14 @@ export const Header = () => {
                 </Disclosure.Button>
               </div>
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex-shrink-0 flex items-center">
+                <div className="flex-shrink-0 mt-2 flex items-center">
                   <Link href="/" passHref>
-                    <div className="h-8 w-32 inline-block">
-                      <Image src={brand} alt="brand" layout="responsive" />
+                    <div className="h-10 w-32 inline-block">
+                      <Image src={brand} height={180} alt="brand" layout="responsive" />
                     </div>
                   </Link>
                 </div>
-                <div className="hidden sm:block sm:ml-6">
+                <div className="hidden mt-2 sm:block sm:ml-6">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
                       <a
@@ -68,7 +68,7 @@ export const Header = () => {
                           item.href === pathName
                             ? "underline decoration-emerald-400 decoration-2 underline-offset-2"
                             : "",
-                          "px-3 py-2 rounded-md text-base font-medium text-sky-600 hover:text-sky-700 hover:scale-110"
+                          "px-3 py-2 rounded-md text-xl font-medium text-sky-600 hover:text-sky-700 hover:scale-110"
                         )}
                         aria-current={
                           item.href === pathName ? "page" : undefined
