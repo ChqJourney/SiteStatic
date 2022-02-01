@@ -1,34 +1,65 @@
 import { LockClosedIcon } from '@heroicons/react/solid'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useState } from 'react/cjs/react.development'
+import { useRecoilState, useResetRecoilState } from 'recoil'
+import useSWR from 'swr'
+import GlobalLayout from '../components/layouts/globalLayout'
+import { fetcher } from '../services/authService'
+import { useLocalStorage } from '../services/useLocalStroage'
+import { localStorageUser, userAtom } from '../stores/authState'
+
+
 export default function Login(){
+  const router=useRouter()
+  console.log(router.query)
+  // const [localuserData,setLocalUserData]=useLocalStorage('user',null)
+  const [localUser,setLocalUser]=useRecoilState(localStorageUser)
+  let initalLoginModel={email:'',password:'',isRemember:false};
+  if(localUser&&localUser.isRemember){
+    initalLoginModel.email=localuserData.email
+    initalLoginModel.password=localuserData.password
+    initalLoginModel.isRemember=true
+  }
+  const [loginModel,setLoginModel]=useState(initalLoginModel)
+
+  async function handleLoginClick(e){
+    e.preventDefault()
+    console.log(loginModel)
+    const res=await fetch('/api/auth',{method:'POST',body:JSON.stringify(loginModel)})
+    const body=await res.json()
+    if(body&&body.token){
+      setLocalUser({...body,isAuthed:true,isRemember:loginModel.isRemember})
+      router.replace(router.query.returnUrl)
+    }else{
+      setLocalUser(null)
+      console.log("login failed")
+    }
+    
+  }
     return (
         
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-50">
-        <body class="h-full">
-        ```
-      */}
+     
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
             <img
               className="mx-auto h-12 w-auto"
-              src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+              src="assets/brand-color-nobg.png"
               alt="Workflow"
             />
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
             <p className="mt-2 text-center text-sm text-gray-600">
-              Or{' '}
-              <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                start your 14-day free trial
-              </a>
-            </p>
+              Or</p>
+              <Link href="/" passHref>
+                <div className="font-medium cursor-pointer mt-2 text-center text-indigo-600 hover:text-indigo-500">
+                  start your tour without identity
+                  </div>
+              </Link>
           </div>
-          <form className="mt-8 space-y-6" action="#" method="POST">
-            <input type="hidden" name="remember" defaultValue="true" />
+          <div className="mt-8 space-y-6" >
+            <input type="hidden" name="remember" defaultValue="false" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
                 <label htmlFor="email-address" className="sr-only">
@@ -42,6 +73,7 @@ export default function Login(){
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Email address"
+                  onChange={e=>setLoginModel({...loginModel,email:e.target.value})}
                 />
               </div>
               <div>
@@ -56,6 +88,7 @@ export default function Login(){
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Password"
+                  onChange={e=>setLoginModel({...loginModel,password:e.target.value})}
                 />
               </div>
             </div>
@@ -66,6 +99,7 @@ export default function Login(){
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
+                  onChange={e=>setLoginModel({...loginModel,password:e.target.value})}
                   className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                 />
                 <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
@@ -74,15 +108,16 @@ export default function Login(){
               </div>
 
               <div className="text-sm">
-                <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                <Link href="/forgetPwd" passHref>
+                <div  className="font-medium cursor-pointer text-indigo-600 hover:text-indigo-500">
                   Forgot your password?
-                </a>
+                </div>
+                </Link>
               </div>
             </div>
 
             <div>
-              <button
-                type="submit"
+              <button onClick={(e)=>handleLoginClick(e)}
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 <span className="absolute left-0 inset-y-0 flex items-center pl-3">
@@ -91,10 +126,18 @@ export default function Login(){
                 Sign in
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </>
   
     )
+}
+
+Login.getLayout = function getLayout(page) {
+  return (
+    <GlobalLayout>
+      {page}
+    </GlobalLayout>
+  )
 }

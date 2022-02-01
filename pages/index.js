@@ -1,14 +1,22 @@
 import Head from "next/head";
 import Image from "next/image";
+import { useRecoilValue } from "recoil";
+import GlobalLayout from "../components/layouts/globalLayout";
 import Layout from "../components/layouts/layout";
+import GetAuthWrapper from "../components/wrapper/getAuthWrapper";
+import { useLocalStorage } from "../services/useLocalStroage";
+import { isAuthorizedStatus, localStorageUser, themeState } from "../stores/authState";
 
-export default function Home() {
+function Home() {
+  const theme=useRecoilValue(themeState)
+  const user=useRecoilValue(localStorageUser)
+  console.log(user)
   return (
     <>
       <Head>
-        <title>various tools you may need</title>
+        <title>{theme}</title>
       </Head>
-      <div className="relative w-screen">
+      <div className="relative w-screen h-screen">
         <div className="max-w-7xl mx-auto bg-transparent">
           <div className="relative z-10 pb-8 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
             {/* <svg className="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white transform translate-x-1/2" fill="currentColor" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
@@ -58,10 +66,6 @@ export default function Home() {
           </div>
         </div>
         
-
-        {/* <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-    <img className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="assets/tools.jpeg" alt="dfaf" />
-  </div> */}
       </div>
       <div className="absolute bg-lime-500 w-48 h-48 right-24 top-64 rounded-full bg-blend-multiply blur-3xl"></div>
         <div className="absolute bg-amber-500 w-48 h-48 my-auto mx-auto left-0 right-0 top-0 bottom-0 rounded-full bg-blend-multiply blur-2xl"></div>
@@ -72,8 +76,11 @@ export default function Home() {
 
 Home.getLayout = function getLayout(page) {
   return (
+    <GlobalLayout>
     <Layout>
       {page}
     </Layout>
+    </GlobalLayout>
   )
 }
+export default Home

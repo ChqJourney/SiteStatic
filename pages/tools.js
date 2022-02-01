@@ -1,7 +1,9 @@
 import Layout from "../components/layouts/layout";
 import { ToolCard } from "../components/layouts/toolcard";
+import GetAuthWrapper from "../components/wrapper/getAuthWrapper";
 
-export default function Tools({ data }) {
+function Tools({ data,user }) {
+  console.log(user)
   return (
     <div className="container mx-auto mt-12 h-screen">
       <div className="grid grid-cols-4 gap-4">
@@ -12,9 +14,6 @@ export default function Tools({ data }) {
     </div>
   );
 }
-Tools.getLayout = function getLayout(page) {
-  return <Layout>{page}</Layout>;
-};
 
 export async function getServerSideProps(context) {
   const fs = require("fs");
@@ -27,3 +26,7 @@ export async function getServerSideProps(context) {
     }, // will be passed to the page component as props
   };
 }
+Tools.getLayout = function getLayout(page) {
+  return <Layout>{page}</Layout>;
+};
+export default Tools

@@ -7,6 +7,8 @@ import { useRouter } from "next/router";
 import { Menu, Transition, Disclosure } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import { checkAuth } from "../../services/authService";
+import { useRecoilValue } from "recoil";
+import { localStorageUser, memoryUser } from "../../stores/authState";
 
 const navigation = [
   { name: "Tutorial", href: "/tutorial", current: false },
@@ -19,24 +21,23 @@ function classNames(...classes) {
 }
 
 export const Header = () => {
-  const [authState, setAuth] = useState({
-    isAuth: false,
-    name: "",
-    token: "",
-    email: "",
-  });
-  useEffect(() => {
-    const result = checkAuth();
-    setAuth(result);
-  }, []);
+  console.log("re-render header")
+  const user=useRecoilValue(memoryUser)
+
+  const [auth,setAuth]=useState({})
   const router = useRouter();
   const pathName = router.pathname;
   // const navs=navigation.map((v,i)=>{if(v.href===pathName){v.current=true}});
-  console.log(pathName);
+  console.log(user);
+  // useEffect(()=>{
+  //   const authInfo=JSON.parse(localStorage.getItem("user"))
+  //   setAuth(authInfo)
+  //   console.log('manual set user')
+  // },[])
   return (
     <Disclosure as="nav" className="bg-transparent">
       {({ open }) => (
-        <>
+        <div>
           <div className="max-w-7xl mx-auto">
             <div className="relative flex items-center justify-between h-16">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -80,25 +81,25 @@ export const Header = () => {
                   </div>
                 </div>
               </div>
-              {authState?.isAuth ? (
+              {user?.isAuthed ? (
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   <button
                     type="button"
-                    className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                    className="bg-white p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                   >
                     <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                    <BellIcon className="h-8 w-8" aria-hidden="true" />
                   </button>
 
                   {/* Profile dropdown */}
-                  <Menu as="div" className="ml-3 relative">
+                  <Menu as="div" className="ml-3 mr-2 relative">
                     <div>
-                      <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                      <Menu.Button className="bg-white flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                         <span className="sr-only">Open user menu</span>
-                        {/* <div className="h8 w-8 inline-block">
-                        <Image alt="adf" layout="responsive" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"/>
-                      </div> */}
-                        <img className="h-8 w-8 rounded-full" src="" alt="" />
+                        {/* <div className="h-8 w-8 inline-block"> */}
+                        {/* <img alt="adf" className="h-8 w-8 inline-block" src="/public/assets/avatars/man.png"/> */}
+                      {/* </div> */}
+                        <img className="h-10 w-10 rounded-full" src={user.user?.avatar??"/assets/avatars/man.png"} alt="" />
                       </Menu.Button>
                     </div>
                     <Transition
@@ -156,7 +157,7 @@ export const Header = () => {
                 </div>
               ) : (
                 <Link
-                  href="/login"
+                  href={`/login?returnUrl=/`}
                   className="absolute right-0 flex items-center text-sky-400 shadow-slate-400 pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
                 >
                   Login
@@ -184,7 +185,7 @@ export const Header = () => {
               ))}
             </div>
           </Disclosure.Panel>
-        </>
+        </div>
       )}
     </Disclosure>
   );
