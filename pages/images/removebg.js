@@ -1,5 +1,7 @@
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
+import { RecoilRoot } from "recoil";
+import GlobalLayout from "../../components/layouts/globalLayout";
 import Layout from "../../components/layouts/layout";
 import Canvas from "../../components/tools/canvas";
 
@@ -168,8 +170,12 @@ export default function RemoveBg() {
 }
 RemoveBg.getLayout = function getLayout(page) {
   return (
-    <Layout>
-      {page}
-    </Layout>
-  )
+      <RecoilRoot>
+      <GlobalLayout>
+          <Layout>
+        {page}
+          </Layout>
+      </GlobalLayout>
+      </RecoilRoot>);
+  
 }

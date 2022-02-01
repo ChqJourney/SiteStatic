@@ -15,7 +15,6 @@ export default function GetAuthWrapper(WrapperComponent){
                 const user =item?JSON.parse(item):undefined;
                 if(user&&user.expireAt){
                     if(user.expireAt>new Date()){
-
                         setData({user:user})
                     }
                 }

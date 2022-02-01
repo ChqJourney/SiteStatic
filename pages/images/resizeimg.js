@@ -1,3 +1,5 @@
+import { RecoilRoot } from "recoil";
+import GlobalLayout from "../../components/layouts/globalLayout";
 import Layout from "../../components/layouts/layout"
 
 
@@ -11,8 +13,12 @@ export default function ResizeImg(){
     
 ResizeImg.getLayout = function getLayout(page) {
     return (
-      <Layout>
-        {page}
-      </Layout>
-    )
+        <RecoilRoot>
+        <GlobalLayout>
+            <Layout>
+          {page}
+            </Layout>
+        </GlobalLayout>
+        </RecoilRoot>);
+    
   }

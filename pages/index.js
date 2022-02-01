@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-import { useRecoilValue } from "recoil";
+import { RecoilRoot, useRecoilValue } from "recoil";
 import GlobalLayout from "../components/layouts/globalLayout";
 import Layout from "../components/layouts/layout";
 import GetAuthWrapper from "../components/wrapper/getAuthWrapper";
@@ -76,11 +76,14 @@ function Home() {
 
 Home.getLayout = function getLayout(page) {
   return (
+    <RecoilRoot>
+
     <GlobalLayout>
     <Layout>
       {page}
     </Layout>
     </GlobalLayout>
+    </RecoilRoot>
   )
 }
 export default Home

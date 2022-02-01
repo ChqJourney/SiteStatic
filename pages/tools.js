@@ -1,3 +1,5 @@
+import { RecoilRoot } from "recoil";
+import GlobalLayout from "../components/layouts/globalLayout";
 import Layout from "../components/layouts/layout";
 import { ToolCard } from "../components/layouts/toolcard";
 import GetAuthWrapper from "../components/wrapper/getAuthWrapper";
@@ -27,6 +29,13 @@ export async function getServerSideProps(context) {
   };
 }
 Tools.getLayout = function getLayout(page) {
-  return <Layout>{page}</Layout>;
+  return (
+    <RecoilRoot>
+    <GlobalLayout>
+        <Layout>
+      {page}
+        </Layout>
+    </GlobalLayout>
+    </RecoilRoot>);
 };
 export default Tools

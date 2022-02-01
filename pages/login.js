@@ -1,8 +1,8 @@
 import { LockClosedIcon } from '@heroicons/react/solid'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState } from 'react/cjs/react.development'
-import { useRecoilState, useResetRecoilState } from 'recoil'
+import { useState } from 'react'
+import { RecoilRoot, useRecoilState, useResetRecoilState } from 'recoil'
 import useSWR from 'swr'
 import GlobalLayout from '../components/layouts/globalLayout'
 import { fetcher } from '../services/authService'
@@ -136,8 +136,11 @@ export default function Login(){
 
 Login.getLayout = function getLayout(page) {
   return (
+    <RecoilRoot>
+
     <GlobalLayout>
       {page}
     </GlobalLayout>
+    </RecoilRoot>
   )
 }

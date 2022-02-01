@@ -1,3 +1,5 @@
+import { RecoilRoot } from "recoil";
+import GlobalLayout from "../components/layouts/globalLayout";
 import Layout from "../components/layouts/layout";
 import { SiderBar } from "../components/siderbar/siderbar";
 
@@ -16,5 +18,12 @@ export default function Tutorial(){
     )
 }
 Tutorial.getLayout = function getLayout(page) {
-    return <Layout>{page}</Layout>;
+    return (
+    <RecoilRoot>
+    <GlobalLayout>
+        <Layout>
+      {page}
+        </Layout>
+    </GlobalLayout>
+    </RecoilRoot>);
   };

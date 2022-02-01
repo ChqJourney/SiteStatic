@@ -1,3 +1,5 @@
+import { RecoilRoot } from "recoil";
+import GlobalLayout from "../../components/layouts/globalLayout";
 import Layout from "../../components/layouts/layout";
 import { ClipCanvas } from "../../components/tools/clipCanvas";
 
@@ -9,8 +11,12 @@ export default function Photo(){
 }
 Photo.getLayout = function getLayout(page) {
     return (
-      <Layout>
-        {page}
-      </Layout>
-    )
+        <RecoilRoot>
+        <GlobalLayout>
+            <Layout>
+          {page}
+            </Layout>
+        </GlobalLayout>
+        </RecoilRoot>);
+    
   }
