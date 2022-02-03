@@ -19,9 +19,12 @@ export default NextAuth({
             }
           },
           from:process.env.EMAIL_FROM,
-          secret:process.env.EMAIL_SECRET,
+          secret:process.env.EMAIL_SECRET
+          
     }),
+
     // ...add more providers here
   ],
+  secret:process.env.EMAIL_SECRET,
   adapter: PrismaAdapter(prisma)
 })
