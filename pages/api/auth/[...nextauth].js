@@ -19,7 +19,7 @@ export default NextAuth({
             }
           },
           from:process.env.EMAIL_FROM,
-          secret:"this is first secret",
+          secret:process.env.EMAIL_SECRET,
     }),
     // ...add more providers here
   ],
