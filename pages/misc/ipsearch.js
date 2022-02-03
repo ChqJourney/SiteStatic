@@ -58,6 +58,8 @@ export default function IpSearch() {
           }
     },[])
   return (
+    <Layout>
+
     <div className="container py-10 mx-auto justify-center grid grid-cols-4 gap-4">
       <div className="flex text-center col-span-4 justify-center">
         <p className="text-center text-xl">您的IP地址为</p>
@@ -83,18 +85,19 @@ export default function IpSearch() {
       <p className="text-2xl h-64 text-amber-700">{removezeroInfo(seartchIpInfo.regions)}</p>
       </div>
     </div>
+    </Layout>
   );
 }
 
 
-IpSearch.getLayout = function getLayout(page) {
-  return (
-      <RecoilRoot>
-      <GlobalLayout>
-          <Layout>
-        {page}
-          </Layout>
-      </GlobalLayout>
-      </RecoilRoot>);
+// IpSearch.getLayout = function getLayout(page) {
+//   return (
+//       <RecoilRoot>
+//       <GlobalLayout>
+//           <Layout>
+//         {page}
+//           </Layout>
+//       </GlobalLayout>
+//       </RecoilRoot>);
   
-}
+// }

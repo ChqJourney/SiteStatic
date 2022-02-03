@@ -130,6 +130,8 @@ export default function RemoveBg() {
   }
 
   return (
+    <Layout>
+
     <div className="h-screen w-full my-2 justify-center min-h-fit pl-48 pr-48">
       <div className="w-full  bg-gray-400 grid row-auto justify-center border-2 p-2 min-h-min border-dashed">
         <Canvas
@@ -166,16 +168,17 @@ export default function RemoveBg() {
         </button>
       </div>
     </div>
+    </Layout>
   );
 }
-RemoveBg.getLayout = function getLayout(page) {
-  return (
-      <RecoilRoot>
-      <GlobalLayout>
-          <Layout>
-        {page}
-          </Layout>
-      </GlobalLayout>
-      </RecoilRoot>);
+// RemoveBg.getLayout = function getLayout(page) {
+//   return (
+//       <RecoilRoot>
+//       <GlobalLayout>
+//           <Layout>
+//         {page}
+//           </Layout>
+//       </GlobalLayout>
+//       </RecoilRoot>);
   
-}
+// }

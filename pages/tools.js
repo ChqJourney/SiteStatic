@@ -7,6 +7,8 @@ import GetAuthWrapper from "../components/wrapper/getAuthWrapper";
 function Tools({ data,user }) {
   console.log(user)
   return (
+    <Layout>
+
     <div className="container mx-auto mt-12 h-screen">
       <div className="grid grid-cols-4 gap-4">
         {data.map((m) => (
@@ -14,6 +16,7 @@ function Tools({ data,user }) {
         ))}
       </div>
     </div>
+    </Layout>
   );
 }
 
@@ -28,14 +31,14 @@ export async function getServerSideProps(context) {
     }, // will be passed to the page component as props
   };
 }
-Tools.getLayout = function getLayout(page) {
-  return (
-    <RecoilRoot>
-    <GlobalLayout>
-        <Layout>
-      {page}
-        </Layout>
-    </GlobalLayout>
-    </RecoilRoot>);
-};
+// Tools.getLayout = function getLayout(page) {
+//   return (
+//     <RecoilRoot>
+//     <GlobalLayout>
+//         <Layout>
+//       {page}
+//         </Layout>
+//     </GlobalLayout>
+//     </RecoilRoot>);
+// };
 export default Tools

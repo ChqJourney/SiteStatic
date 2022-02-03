@@ -1,15 +1,19 @@
-import '../styles/globals.css'
-import Layout from '../components/layouts/layout'
-import { RecoilRoot } from 'recoil'
+import "../styles/globals.css";
+import {appWithTranslation} from 'next-i18next'
+import { SessionProvider } from "next-auth/react";
 
 function MyApp({ Component, pageProps }) {
-  const getLayout = Component.getLayout || ((page) => page)
+    if(process.env.NODE_ENV==='production'){
 
-  return getLayout(
+        console.log=()=>{}
+    }
 
-      <Component {...pageProps} />
-  )
+    return (
+        <SessionProvider session={pageProps.session}>
+            <Component {...pageProps}  />
+        </SessionProvider>
+    );
+  
 }
 
-export default MyApp
-
+export default appWithTranslation(MyApp);

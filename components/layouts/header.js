@@ -3,46 +3,36 @@ import Image from "next/image";
 import brand from "../../public/assets/brand-color-nobg.png";
 import Link from "next/link";
 import { useRouter } from "next/router";
-// import { FiMail, FiMenu } from "react-icons/fi";
 import { Menu, Transition, Disclosure } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
-import { checkAuth } from "../../services/authService";
-import { useRecoilValue } from "recoil";
-import { localStorageUser, memoryUser } from "../../stores/authState";
+import GetAuthWrapper from "../wrapper/getAuthWrapper";
+import { deleteFromStorage,useLocalStorage,writeStorage } from "@rehooks/local-storage";
+import { useMounted } from "../hooks/useMounted";
+import { signIn,signOut } from "next-auth/react"
 
-const navigation = [
-  { name: "Tutorial", href: "/tutorial", current: false },
-  { name: "Tools", href: "/tools", current: false },
-  { name: "About", href: "/about", current: false },
-];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export const Header = () => {
-  console.log("re-render header")
-  const user=useRecoilValue(memoryUser)
-
-  const [auth,setAuth]=useState({})
+function Header ({ user,menus})  {
+  console.log(menus)
+  const {hasMounted}=useMounted(false)
+  const currentUser=hasMounted?user:null
+  const currentMenus=hasMounted?menus:null
+    console.log("re-render header")
   const router = useRouter();
   const pathName = router.pathname;
-  // const navs=navigation.map((v,i)=>{if(v.href===pathName){v.current=true}});
-  console.log(user);
-  // useEffect(()=>{
-  //   const authInfo=JSON.parse(localStorage.getItem("user"))
-  //   setAuth(authInfo)
-  //   console.log('manual set user')
-  // },[])
-  return (
+  return currentMenus? (
     <Disclosure as="nav" className="bg-transparent">
       {({ open }) => (
-        <div>
+        <>
           <div className="max-w-7xl mx-auto">
             <div className="relative flex items-center justify-between h-16">
-              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden" suppressHydrationWarning={true}>
                 {/* Mobile menu button*/}
                 <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                  
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XIcon className="block h-6 w-6" aria-hidden="true" />
@@ -54,14 +44,14 @@ export const Header = () => {
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex-shrink-0 mt-2 flex items-center">
                   <Link href="/" passHref>
-                    <div className="h-10 w-32 inline-block">
-                      <Image src={brand} height={180} alt="brand" layout="responsive" />
+                    <div className="h-12 w-32 inline-block ml-2">
+                      <Image src={brand}  alt="brand" layout="responsive" />
                     </div>
                   </Link>
                 </div>
                 <div className="hidden mt-2 sm:block sm:ml-6">
                   <div className="flex space-x-4">
-                    {navigation.map((item) => (
+                    {currentMenus.map((item) => (
                       <a
                         key={item.name}
                         href={item.href}
@@ -81,10 +71,9 @@ export const Header = () => {
                   </div>
                 </div>
               </div>
-              {user?.isAuthed ? (
+              {currentUser ? (
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   <button
-                    type="button"
                     className="bg-white p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                   >
                     <span className="sr-only">View notifications</span>
@@ -99,7 +88,7 @@ export const Header = () => {
                         {/* <div className="h-8 w-8 inline-block"> */}
                         {/* <img alt="adf" className="h-8 w-8 inline-block" src="/public/assets/avatars/man.png"/> */}
                       {/* </div> */}
-                        <img className="h-10 w-10 rounded-full" src={user.user?.avatar??"/assets/avatars/man.png"} alt="" />
+                        <img className="h-10 w-10 rounded-full" src={currentUser?.avatar??"/assets/avatars/man.png"} alt="avatar" />
                       </Menu.Button>
                     </div>
                     <Transition
@@ -112,6 +101,19 @@ export const Header = () => {
                       leaveTo="transform opacity-0 scale-95"
                     >
                       <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 z-50 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Item>
+                          {({ active }) => (
+                            <a
+                              href="#"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              {currentUser.email}
+                            </a>
+                          )} 
+                        </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
                             <a
@@ -123,12 +125,12 @@ export const Header = () => {
                             >
                               Your Profile
                             </a>
-                          )}
+                          )} 
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
                             <a
-                              href="#"
+                              href="#" onClick={()=>signOut()}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
@@ -140,15 +142,21 @@ export const Header = () => {
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
+                           
                             <a
                               href="#"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
+                              onClick={()=>{
+                                deleteFromStorage("user")
+                                router.push('/','/',{locale:'zh'})
+                              }}
                             >
                               Sign out
                             </a>
+                           
                           )}
                         </Menu.Item>
                       </Menu.Items>
@@ -156,18 +164,21 @@ export const Header = () => {
                   </Menu>
                 </div>
               ) : (
-                <Link
-                  href={`/login?returnUrl=/`}
-                  className="absolute right-0 flex items-center text-sky-400 shadow-slate-400 pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
-                >
+                // <Link
+                //   href={`/login?returnUrl=/`}
+                //   passHref
+                // >
+                  <a href="#" onClick={()=>signIn()} className="absolute right-0 flex items-center cursor-pointer text-sky-400 shadow-slate-400 pr-2 sm:static sm:inset-auto sm:ml-6">
+
                   Login
-                </Link>
+                  </a>
+                // </Link>
               )}
             </div>
           </div>
           <Disclosure.Panel className="sm:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {navigation.map((item) => (
+              {currentMenus.map((item) => (
                 <Disclosure.Button
                   key={item.name}
                   as="a"
@@ -185,8 +196,11 @@ export const Header = () => {
               ))}
             </div>
           </Disclosure.Panel>
-        </div>
+        </>
       )}
     </Disclosure>
-  );
+  ):<p>loading...</p>;
 };
+
+
+export default GetAuthWrapper(Header) 

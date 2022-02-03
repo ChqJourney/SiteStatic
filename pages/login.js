@@ -1,4 +1,5 @@
 import { LockClosedIcon } from '@heroicons/react/solid'
+import useLocalStorage, { deleteFromStorage, writeStorage } from '@rehooks/local-storage'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -6,15 +7,14 @@ import { RecoilRoot, useRecoilState, useResetRecoilState } from 'recoil'
 import useSWR from 'swr'
 import GlobalLayout from '../components/layouts/globalLayout'
 import { fetcher } from '../services/authService'
-import { useLocalStorage } from '../services/useLocalStroage'
 import { localStorageUser, userAtom } from '../stores/authState'
-
+import { signIn } from "next-auth/react"
 
 export default function Login(){
   const router=useRouter()
   console.log(router.query)
   // const [localuserData,setLocalUserData]=useLocalStorage('user',null)
-  const [localUser,setLocalUser]=useRecoilState(localStorageUser)
+  const [localUser]=useLocalStorage('user')
   let initalLoginModel={email:'',password:'',isRemember:false};
   if(localUser&&localUser.isRemember){
     initalLoginModel.email=localuserData.email
@@ -25,23 +25,24 @@ export default function Login(){
 
   async function handleLoginClick(e){
     e.preventDefault()
-    console.log(loginModel)
-    const res=await fetch('/api/auth',{method:'POST',body:JSON.stringify(loginModel)})
-    const body=await res.json()
-    if(body&&body.token){
-      setLocalUser({...body,isAuthed:true,isRemember:loginModel.isRemember})
-      router.replace(router.query.returnUrl)
-    }else{
-      setLocalUser(null)
-      console.log("login failed")
-    }
+    signIn()
+    // console.log(loginModel)
+    // const res=await fetch('/api/auth',{method:'POST',body:JSON.stringify(loginModel)})
+    // const body=await res.json()
+    // if(body&&body.token){
+    //   writeStorage("user",{...body,isAuthed:true,isRemember:loginModel.isRemember})
+    //   router.push(router.query.returnUrl)
+    // }else{
+    //   deleteFromStorage("user")
+    //   console.log("login failed")
+    // }
     
   }
     return (
         
     <>
      
-      <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
             <img
@@ -134,13 +135,13 @@ export default function Login(){
     )
 }
 
-Login.getLayout = function getLayout(page) {
-  return (
-    <RecoilRoot>
+// Login.getLayout = function getLayout(page) {
+//   return (
+//     <RecoilRoot>
 
-    <GlobalLayout>
-      {page}
-    </GlobalLayout>
-    </RecoilRoot>
-  )
-}
+//     <GlobalLayout>
+//       {page}
+//     </GlobalLayout>
+//     </RecoilRoot>
+//   )
+// }

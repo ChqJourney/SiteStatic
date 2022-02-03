@@ -1,19 +1,15 @@
-import Head from "next/head";
-import { useState } from "react";
-import { RecoilRoot } from "recoil";
+
 import GetAuthWrapper from "../wrapper/getAuthWrapper";
 import { Footer } from "./footer";
-import { Header } from "./header";
+import Header from "./header";
 
-
-
-function Layout({ children }) {
+function Layout({ children, menus }) {
   return (
     <>
-      <Header/>
+      <Header menus={menus} />
       <main className=" min-h-min">{children}</main>
-      <Footer/>
+      <Footer />
     </>
-  )
+  );
 }
-export default Layout
+export default Layout;

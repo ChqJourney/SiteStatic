@@ -1,41 +1,25 @@
 import Head from "next/head";
-import Image from "next/image";
-import { RecoilRoot, useRecoilValue } from "recoil";
-import GlobalLayout from "../components/layouts/globalLayout";
 import Layout from "../components/layouts/layout";
-import GetAuthWrapper from "../components/wrapper/getAuthWrapper";
-import { useLocalStorage } from "../services/useLocalStroage";
-import { isAuthorizedStatus, localStorageUser, themeState } from "../stores/authState";
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-function Home() {
-  const theme=useRecoilValue(themeState)
-  const user=useRecoilValue(localStorageUser)
-  console.log(user)
+function Home({menus}) {
+  console.log(menus)
+  const {t}=useTranslation('common')
   return (
-    <>
+    <Layout menus={menus}>
       <Head>
-        <title>{theme}</title>
+        <title>{t('windowTitle')}</title> 
       </Head>
       <div className="relative w-screen h-screen">
         <div className="max-w-7xl mx-auto bg-transparent">
           <div className="relative z-10 pb-8 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
-            {/* <svg className="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white transform translate-x-1/2" fill="currentColor" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-        <polygon points="50,0 100,0 50,100 0,100" />
-      </svg>
-      <div>
-        <div className="relative pt-6 px-4 sm:px-6 lg:px-8">
-          <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
-            <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
-            </div>
-          </nav>
-        </div>
-       
-      </div> */}
+           
             <div className="w-full mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
               <div className="text-center lg:text-left">
                 <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
                   <span className="block xl:inline">
-                    Tools to accellarate your 
+                    {t('herotitle')}
                   </span>
                   <span className="block text-indigo-600 mx-2 xl:inline">
                     online business
@@ -47,7 +31,7 @@ function Home() {
                   occaecat fugiat aliqua.
                 </p>
                 <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                  <button className="btn-color mx-4 my-2">Get started</button>
+                  <button className="btn-color mx-4 my-2">{t('startBtn')}</button>
                   {/* <div className="rounded-md shadow">
               <a href="#" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
                 Get started
@@ -70,20 +54,25 @@ function Home() {
       <div className="absolute bg-lime-500 w-48 h-48 right-24 top-64 rounded-full bg-blend-multiply blur-3xl"></div>
         <div className="absolute bg-amber-500 w-48 h-48 my-auto mx-auto left-0 right-0 top-0 bottom-0 rounded-full bg-blend-multiply blur-2xl"></div>
         <div className="absolute bg-sky-500 w-72 h-72 right-64 top-96 rounded-full bg-blend-multiply blur-2xl"></div>
-    </>
+    </Layout>
   );
 }
 
-Home.getLayout = function getLayout(page) {
-  return (
-    <RecoilRoot>
 
-    <GlobalLayout>
-    <Layout>
-      {page}
-    </Layout>
-    </GlobalLayout>
-    </RecoilRoot>
-  )
-}
+
 export default Home
+
+export async function getServerSideProps({locale}) {
+  const fs=require('fs')
+  var file=await fs.readFileSync('./Users/site.json','utf-8')
+
+    var jsObj=JSON.parse(file)
+    console.log(jsObj)
+  return {
+    props: {
+      ...await serverSideTranslations(locale, ['common', 'footer','header']),
+      menus:jsObj
+    }, // will be passed to the page component as props
+  }
+}
+

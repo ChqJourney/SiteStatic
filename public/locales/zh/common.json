@@ -1,0 +1,9 @@
+{
+    "windowTitle": "大量工具",
+    "herotitle": "让工具加速你的在线业务",
+    "startBtn":"开始",
+    "to-second-page": "Zur zweiten Seite",
+    "error-with-status": "Auf dem Server ist ein Fehler ({{statusCode}}) aufgetreten",
+    "error-without-status": "Auf dem Server ist ein Fehler aufgetreten",
+    "title": "Hauptseite | next-i18next"
+}

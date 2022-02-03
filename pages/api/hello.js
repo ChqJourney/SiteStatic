@@ -4,7 +4,5 @@ function getReqRemoteIp(req){return (req.headers['x-forwarded-for'] || '').split
 
 export default function handler(req, res) {
   const ip=getReqRemoteIp(req);
-  console.log(req.headers)
-  console.log(ip)
   res.status(200).json({ data:"ddddd",remoteIpAddr:ip})
 }
