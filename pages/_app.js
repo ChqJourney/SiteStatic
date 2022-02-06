@@ -1,7 +1,8 @@
 import "../styles/globals.css";
 import { appWithTranslation } from "next-i18next";
 import React from "react";
-import 'react-quill/dist/quill.snow.css'
+import 'react-quill/dist/quill.bubble.css'
+import { UserProvider } from "@auth0/nextjs-auth0";
 
 function MyApp({ Component, pageProps }) {
   if (process.env.NODE_ENV === "production") {
@@ -9,7 +10,10 @@ function MyApp({ Component, pageProps }) {
   }
   console.log(process.env.NODE_ENV);
   return (
+    <UserProvider>
+
       <Component {...pageProps} />
+    </UserProvider>
   );
 }
 

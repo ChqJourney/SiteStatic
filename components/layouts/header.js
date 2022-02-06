@@ -3,34 +3,34 @@ import Image from "next/image";
 import brand from "../../public/assets/brand-color-nobg.png";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Disclosure } from "@headlessui/react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useMounted } from "../hooks/useMounted";
-
+import { useUser } from "@auth0/nextjs-auth0";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-function Header ({menus})  {
-  const {hasMounted}=useMounted(false)
-  const currentMenus=hasMounted?menus:null
-    console.log("re-render header")
+function Header({ menus }) {
+  const { hasMounted } = useMounted(false);
+  const { user, isLoading } = useUser();
+  const currentMenus = hasMounted ? menus : null;
+  const currentUser = hasMounted ? user : null;
   const router = useRouter();
   const pathName = router.pathname;
-  const currentLang=router.locale;
-  const otherLang=router.locales.find(f=>f!==currentLang)
-  console.log(otherLang)
-  return currentMenus? (
+  const currentLang = router.locale;
+  const otherLang = router.locales.find((f) => f !== currentLang);
+  console.log(user);
+  return currentMenus ? (
     <Disclosure as="nav" className="bg-transparent">
       {({ open }) => (
         <>
-          <div className="max-w-7xl mx-auto">
+          <div className="max-w-7xl mx-auto ">
             <div className="relative flex items-center justify-between h-16">
-              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden" suppressHydrationWarning={true}>
+              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
                 <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                  
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XIcon className="block h-6 w-6" aria-hidden="true" />
@@ -40,10 +40,10 @@ function Header ({menus})  {
                 </Disclosure.Button>
               </div>
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex-shrink-0 mt-2 flex items-center">
+                <div className="flex-shrink-0 mt-2 ml-2 flex items-center">
                   <Link href="/" passHref>
-                    <div className="h-12 w-32 inline-block ml-2">
-                      <Image src={brand}  alt="brand" layout="responsive" />
+                    <div className="h-12 w-32 inline-block ml-2 cursor-pointer pt-1 md:pt-2">
+                      <Image src={brand} alt="brand" layout="responsive" />
                     </div>
                   </Link>
                 </div>
@@ -52,12 +52,16 @@ function Header ({menus})  {
                     {currentMenus.map((item) => (
                       <a
                         key={item.name}
-                        onClick={()=>router.push(item.href,item.href,{locale:currentLang})}
+                        onClick={() =>
+                          router.push(item.href, item.href, {
+                            locale: currentLang,
+                          })
+                        }
                         className={classNames(
                           item.href === pathName
-                            ? "underline decoration-emerald-400 decoration-2 underline-offset-2"
+                            ? "underline decoration-emerald-400 decoration-2 text-xl  underline-offset-2"
                             : "",
-                          "px-3 py-2 rounded-md text-xl font-medium text-sky-600 hover:text-sky-700 hover:scale-110"
+                          "px-3 py-2 rounded-md cursor-pointer text-base font-base text-sky-600 hover:text-sky-700 hover:scale-110"
                         )}
                         aria-current={
                           item.href === pathName ? "page" : undefined
@@ -68,34 +72,163 @@ function Header ({menus})  {
                     ))}
                   </div>
                 </div>
-                </div> 
-                <div className="absolute inset-y-0 right-1 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button
-                  type="button" onClick={()=>router.push(pathName,pathName,{locale:otherLang})}
-                  className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                >
-                  <div className="flex">
-
-                  <span className="sr-only">change language</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-</svg>
-<span>{router.locale}</span>
-                  </div>
-                </button>
-                </div>
               </div>
-              
-                
-           
+
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <Menu as="div" className="mx-0 relative">
+                  <div>
+                    <Menu.Button className="bg-white flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                      <span className="sr-only">Switch language</span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-10 w-10 mx-1 stroke-gray-200 md:stroke-sky-400 hover:stroke-purple-400"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                        />
+                      </svg>
+                    </Menu.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-24 z-50 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href="#"
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
+                          >
+                            English
+                          </a>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href="#"
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
+                          >
+                            Chinese
+                          </a>
+                        )}
+                      </Menu.Item>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
+                {currentUser ? (
+                  <Menu as="div" className="ml-0 mr-3 relative">
+                    <div>
+                      <Menu.Button className="bg-white flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                        <span className="sr-only">Open user menu</span>
+                        {/* <div className="h-8 w-8 inline-block"> */}
+                        {/* <img alt="adf" className="h-8 w-8 inline-block" src="/public/assets/avatars/man.png"/> */}
+                        {/* </div> */}
+                        <img
+                          className="h-8 w-8 rounded-full"
+                          src={
+                            currentUser?.picture ?? "/assets/avatars/man.png"
+                          }
+                          alt="avatar"
+                        />
+                      </Menu.Button>
+                    </div>
+                    <Transition
+                      as={Fragment}
+                      enter="transition ease-out duration-100"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
+                    >
+                      <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 z-50 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a
+                              href="#"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              {currentUser.name}
+                            </a>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a
+                              href="/api/auth/me"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Your Profile
+                            </a>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a
+                              href="/api/auth/logout"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Sign out
+                            </a>
+                          )}
+                        </Menu.Item>
+                      </Menu.Items>
+                    </Transition>
+                  </Menu>
+                ) : (
+                  <Menu as="div" className="mx-0 relative">
+                    <Menu.Button className="bg-white flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+
+                    <a
+                      href="/api/auth/login"
+                      className="flex items-center cursor-pointer text-sky-400 shadow-slate-400 pr-2 sm:static sm:inset-auto sm:ml-6"
+                    >
+                      <span className=" font-semibold text-lg hover:underline decoration-green-400 decoration-2 underline-offset-4">Login
+                        </span>
+                    </a>
+                    </Menu.Button>
+                  </Menu>
+                )}
+              </div>
+            </div>
           </div>
-          
+
           <Disclosure.Panel className="sm:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {currentMenus.map((item) => (
                 <div
                   key={item.name}
-                  onClick={()=>router.push(item.href,item.href,{locale:currentLang})}
+                  onClick={() =>
+                    router.push(item.href, item.href, { locale: currentLang })
+                  }
                   className={classNames(
                     item.href === pathName
                       ? "bg-gray-900 text-white"
@@ -104,21 +237,17 @@ function Header ({menus})  {
                   )}
                   aria-current={item.href === pathName ? "page" : undefined}
                 >
-                  <a href="#">
-                  {item.name}
-                    </a>
+                  <a href="#">{item.name}</a>
                 </div>
               ))}
             </div>
-            
-           
-                
           </Disclosure.Panel>
         </>
       )}
     </Disclosure>
-  ):<p>loading...</p>;
-};
+  ) : (
+    <p>loading...</p>
+  );
+}
 
-
-export default Header
+export default Header;

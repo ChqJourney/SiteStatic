@@ -1,6 +1,7 @@
+import Layout from "../../components/layouts/layout"
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import Layout from '../components/layouts/layout'
+
 
 const QuillNoSSRWrapper =
   typeof window === "object"
@@ -49,7 +50,7 @@ const formats = [
   "video",
 ];
 
-function Blogs({ menus,posts }) {
+function Create({ menus }) {
   const [value, setValue] = useState("");
   // let QuillNoSSRWrapper
   // if(typeof window !== 'undefined'){
@@ -58,9 +59,27 @@ function Blogs({ menus,posts }) {
   return (
     <Layout menus={menus}>
       <div className="container mx-auto mt-12 ">
-         {posts.map(p=>(
-             <div key={p.id}>{p.title}</div>
-         ))}
+          <p className="text-2xl font-medium text-center">Create your new blog</p>
+        <form className="grid grid-flow-row auto-rows-max hover:auto-rows-min m-6">
+          <label>your blog title</label>
+          <input type="text" className=" border-2 pl-1 shadow-sm shadow-purple-400"  placeholder="blog title"></input>
+          <label>your blog key words</label>
+          <input type="text" className=" border-2 pl-1 shadow-sm shadow-purple-400"  placeholder="blog key words"></input>
+          <label>main content</label>
+          <QuillNoSSRWrapper
+            className="h-[500px] border-2 mt-1 pl-1 shadow-sm shadow-sky-400"
+            value={value}
+            onChange={(e) => console.log(e)}
+            modules={modules}
+            formats={formats}
+            placeholder="write your blog here..."
+            theme="bubble"
+          ></QuillNoSSRWrapper>
+          <div className="flex">
+          <button className="mt-10 btn-secondary mx-auto">Clear</button>
+          <button className="mt-10 btn-color mx-auto">Save</button>
+          </div>
+        </form>
       </div>
     </Layout>
   );
@@ -70,24 +89,10 @@ export async function getServerSideProps(context) {
   const fs = require("fs");
   var file1 = await fs.readFileSync("./Users/site.json", "utf-8");
   var menus = JSON.parse(file1);
-  let recentPosts
-  if(process.env.NODE_ENV==='production'){
-
-      var response=await fetch('')
-      recentPosts=await response.json()
-  }else{
-      recentPosts=
-      [
-          {id:1,title:"adfadf",content:"adfadfadfadfafdadf"},
-          {id:2,title:"adfadf",content:"adfadfadfadfafdadf"},
-          {id:3,title:"adfadf",content:"adfadfadfadfafdadf"},
-    ]
-  }
   return {
     props: {
       menus: menus,
-      posts:recentPosts
     },
   };
 }
-export default Blogs;
+export default Create;
