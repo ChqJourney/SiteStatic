@@ -18,10 +18,6 @@ function Header({ menus }) {
   const currentMenus = hasMounted ? menus : null;
   const currentUser = hasMounted ? user : null;
   const router = useRouter();
-  const pathName = router.pathname;
-  const currentLang = router.locale;
-  const otherLang = router.locales.find((f) => f !== currentLang);
-  console.log(user);
   return currentMenus ? (
     <Disclosure as="nav" className="bg-transparent">
       {({ open }) => (
@@ -54,17 +50,17 @@ function Header({ menus }) {
                         key={item.name}
                         onClick={() =>
                           router.push(item.href, item.href, {
-                            locale: currentLang,
+                            locale: router.locale,
                           })
                         }
                         className={classNames(
-                          item.href === pathName
+                          item.href === router.pathname
                             ? "underline decoration-emerald-400 decoration-2 text-xl  underline-offset-2"
                             : "",
                           "px-3 py-2 rounded-md cursor-pointer text-base font-base text-sky-600 hover:text-sky-700 hover:scale-110"
                         )}
                         aria-current={
-                          item.href === pathName ? "page" : undefined
+                          item.href === router.pathname ? "page" : undefined
                         }
                       >
                         {item.name}
@@ -109,6 +105,7 @@ function Header({ menus }) {
                         {({ active }) => (
                           <a
                             href="#"
+                            onClick={()=>router.push(router.pathname,router.pathname,{locale:'en'})}
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
@@ -122,6 +119,7 @@ function Header({ menus }) {
                         {({ active }) => (
                           <a
                             href="#"
+                            onClick={()=>router.push(router.pathname,router.pathname,{locale:'zh'})}
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
@@ -238,12 +236,12 @@ function Header({ menus }) {
                     router.push(item.href, item.href, { locale: currentLang })
                   }
                   className={classNames(
-                    item.href === pathName
+                    item.href === router.pathname
                       ? "bg-gray-900 text-white"
                       : "text-black-300 hover:bg-gray-700 hover:text-white",
                     "block px-3 py-2 rounded-md text-base font-medium"
                   )}
-                  aria-current={item.href === pathName ? "page" : undefined}
+                  aria-current={item.href === router.pathname ? "page" : undefined}
                 >
                   <a href="#">{item.name}</a>
                 </div>
