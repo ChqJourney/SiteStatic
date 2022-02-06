@@ -1,15 +1,14 @@
-
-import GetAuthWrapper from "../wrapper/getAuthWrapper";
 import { Footer } from "./footer";
 import Header from "./header";
 
-function Layout({ children, menus }) {
+function Layout({ children,menus }) {
+  
   return (
-    <>
-      <Header menus={menus} />
-      <main className=" min-h-min">{children}</main>
+    <div className="flex flex-col h-screen justify-between">
+      <Header menus={menus}/>
+      <main className="mb-auto">{children}</main>
       <Footer />
-    </>
+    </div>
   );
 }
 export default Layout;

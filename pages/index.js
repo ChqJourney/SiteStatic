@@ -4,8 +4,8 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 function Home({menus}) {
-  console.log(menus)
   const {t}=useTranslation('common')
+  
   return (
     <Layout menus={menus}>
       <Head>

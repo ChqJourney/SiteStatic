@@ -1,17 +1,12 @@
-import { RecoilRoot } from "recoil";
-import GlobalLayout from "../components/layouts/globalLayout";
 import Layout from "../components/layouts/layout";
 import { ToolCard } from "../components/layouts/toolcard";
-import GetAuthWrapper from "../components/wrapper/getAuthWrapper";
 
-function Tools({ data,user }) {
-  console.log(user)
+function Tools({ tools,menus }) {
   return (
-    <Layout>
-
-    <div className="container mx-auto mt-12 h-screen">
+    <Layout menus={menus}>
+    <div className="container mx-auto mt-12 h-full">
       <div className="grid grid-cols-4 gap-4">
-        {data.map((m) => (
+        {tools.map((m) => (
           <ToolCard key={m.id} tool={m} />
         ))}
       </div>
@@ -23,22 +18,14 @@ function Tools({ data,user }) {
 export async function getServerSideProps(context) {
   const fs = require("fs");
   var file = await fs.readFileSync("./Users/tools.json", "utf-8");
-  var jsObj = JSON.parse(file);
-  console.log(jsObj);
+  var file1 = await fs.readFileSync("./Users/site.json", "utf-8");
+  var tools = JSON.parse(file);
+  var menus=JSON.parse(file1)
   return {
     props: {
-      data: jsObj,
-    }, // will be passed to the page component as props
+      tools: tools,
+      menus:menus
+    }, 
   };
 }
-// Tools.getLayout = function getLayout(page) {
-//   return (
-//     <RecoilRoot>
-//     <GlobalLayout>
-//         <Layout>
-//       {page}
-//         </Layout>
-//     </GlobalLayout>
-//     </RecoilRoot>);
-// };
 export default Tools
