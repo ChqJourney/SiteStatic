@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { RecoilRoot } from "recoil";
-import GlobalLayout from "../../components/layouts/globalLayout";
 import Layout from "../../components/layouts/layout";
 
 function removezeroInfo(regions){

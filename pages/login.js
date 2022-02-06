@@ -3,11 +3,6 @@ import useLocalStorage, { deleteFromStorage, writeStorage } from '@rehooks/local
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import { RecoilRoot, useRecoilState, useResetRecoilState } from 'recoil'
-import useSWR from 'swr'
-import GlobalLayout from '../components/layouts/globalLayout'
-import { fetcher } from '../services/authService'
-import { localStorageUser, userAtom } from '../stores/authState'
 import { signIn } from "next-auth/react"
 
 export default function Login(){
