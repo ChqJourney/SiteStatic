@@ -176,8 +176,10 @@ function Header({ menus }) {
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
+                            <Link href="/api/auth/me" passHref>
+                            
                             <a
-                              href="#"
+                              
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
@@ -185,12 +187,15 @@ function Header({ menus }) {
                             >
                               Your Profile
                             </a>
+                            </Link>
                           )}
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
+                           <Link href="/api/auth/logout" passHref>
+
                             <a
-                              href="/api/auth/logout"
+                              
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
@@ -198,6 +203,7 @@ function Header({ menus }) {
                             >
                               Sign out
                             </a>
+                           </Link>
                           )}
                         </Menu.Item>
                       </Menu.Items>
@@ -206,14 +212,16 @@ function Header({ menus }) {
                 ) : (
                   <Menu as="div" className="mx-0 relative">
                     <Menu.Button className="bg-white flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-
+                  <Link href="/api/auth/login" passHref>
+                  
                     <a
-                      href="/api/auth/login"
-                      className="flex items-center cursor-pointer text-sky-400 shadow-slate-400 pr-2 sm:static sm:inset-auto sm:ml-6"
+                      
+                      className="flex items-center cursor-pointer shadow-slate-400 pr-2 sm:static sm:inset-auto sm:ml-6"
                     >
-                      <span className=" font-semibold text-lg hover:underline decoration-green-400 decoration-2 underline-offset-4">Login
+                      <span className="text-lg hover:underline text-sky-600 decoration-green-400 underline-2 underline-offset-4">Login
                         </span>
                     </a>
+                  </Link>
                     </Menu.Button>
                   </Menu>
                 )}
