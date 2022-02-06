@@ -1,7 +1,5 @@
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
-import { RecoilRoot } from "recoil";
-import GlobalLayout from "../../components/layouts/globalLayout";
 import Layout from "../../components/layouts/layout";
 import Canvas from "../../components/tools/canvas";
 

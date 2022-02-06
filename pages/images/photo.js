@@ -1,5 +1,3 @@
-import { RecoilRoot } from "recoil";
-import GlobalLayout from "../../components/layouts/globalLayout";
 import Layout from "../../components/layouts/layout";
 import { ClipCanvas } from "../../components/tools/clipCanvas";
 
