@@ -3,7 +3,6 @@ import useLocalStorage, { deleteFromStorage, writeStorage } from '@rehooks/local
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import { signIn } from "next-auth/react"
 
 export default function Login(){
   const router=useRouter()
@@ -20,7 +19,6 @@ export default function Login(){
 
   async function handleLoginClick(e){
     e.preventDefault()
-    signIn()
     // console.log(loginModel)
     // const res=await fetch('/api/auth',{method:'POST',body:JSON.stringify(loginModel)})
     // const body=await res.json()
