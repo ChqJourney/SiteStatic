@@ -1,9 +1,13 @@
 {
-    "windowTitle": "大量工具",
-    "herotitle": "让工具加速你的在线业务",
+    "windowTitle": "{{page}}-心仪的软件工具",
+    "Home":"首页",
+    "Tutorial":"教程",
+    "Tools":"工具",
+    "Blogs":"博客",
+    "loginBtn":"登录",
+    "herotitle1":"寻找最心仪的软件/工具来加速您的",
+    "herotitle2":"在线办公事务",
+    "heroDescription":"您可能经常忙于寻找一些软件或在线工具去完成一些必须又不经常性的文字/图片/文档工作，但似乎用于找不到100%适合您的",
     "startBtn":"开始",
-    "to-second-page": "Zur zweiten Seite",
-    "error-with-status": "Auf dem Server ist ein Fehler ({{statusCode}}) aufgetreten",
-    "error-without-status": "Auf dem Server ist ein Fehler aufgetreten",
-    "title": "Hauptseite | next-i18next"
+    "tutorialBtn":"教程"
 }

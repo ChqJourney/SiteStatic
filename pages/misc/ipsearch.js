@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import Layout from "../../components/layouts/layout";
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 function removezeroInfo(regions){
   if(!regions){
@@ -32,7 +34,7 @@ function f_check_IP(ip)
    return false;    
 }
 
-export default function IpSearch() {
+export default function IpSearch({menus}) {
     const [clientIp,setClientIp]=useState("")
     const [searchIp,setSearchIp]=useState("")
     const [seartchIpInfo,setSearchIpInfo]=useState({ipAddress:"",regions:""})
@@ -56,7 +58,7 @@ export default function IpSearch() {
           }
     },[])
   return (
-    <Layout>
+    <Layout menus={menus}>
 
     <div className="container py-10 mx-auto justify-center grid grid-cols-4 gap-4">
       <div className="flex text-center col-span-4 justify-center">
@@ -88,14 +90,16 @@ export default function IpSearch() {
 }
 
 
-// IpSearch.getLayout = function getLayout(page) {
-//   return (
-//       <RecoilRoot>
-//       <GlobalLayout>
-//           <Layout>
-//         {page}
-//           </Layout>
-//       </GlobalLayout>
-//       </RecoilRoot>);
-  
-// }
+export async function getServerSideProps({locale}) {
+  const fs=require('fs')
+  var file=await fs.readFileSync('./Users/site.json','utf-8')
+
+    var jsObj=JSON.parse(file)
+    console.log(jsObj)
+  return {
+    props: {
+      ...await serverSideTranslations(locale, ['common', 'footer','header']),
+      menus:jsObj
+    }, // will be passed to the page component as props
+  }
+}

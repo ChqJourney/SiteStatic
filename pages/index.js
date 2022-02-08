@@ -2,6 +2,7 @@ import Head from "next/head";
 import Layout from "../components/layouts/layout";
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { Router } from "next/router";
 
 function Home({menus}) {
   const {t}=useTranslation('common')
@@ -9,7 +10,7 @@ function Home({menus}) {
   return (
     <Layout menus={menus}>
       <Head>
-        <title>{t('windowTitle')}</title> 
+        <title>{t('windowTitle',{page:'Home'})}</title> 
       </Head>
       <div className="relative w-screen h-screen">
         <div className="max-w-7xl mx-auto bg-transparent">
@@ -17,18 +18,16 @@ function Home({menus}) {
            
             <div className="w-full mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
               <div className="text-center lg:text-left">
-                <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-4xl md:text-5xl">
                   <span className="block xl:inline">
-                    {t('herotitle')}
+                    {t('herotitle1')}
                   </span>
                   <span className="block text-indigo-600 mx-2 xl:inline">
-                    online business
+                  {t('herotitle2')}
                   </span>
                 </h1>
                 <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                  Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure
-                  qui lorem cupidatat commodo. Elit sunt amet fugiat veniam
-                  occaecat fugiat aliqua.
+                  {t('heroDescription')}
                 </p>
                 <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                   <button className="btn-color mx-4 my-2">{t('startBtn')}</button>
@@ -38,7 +37,7 @@ function Home({menus}) {
               </a>
             </div> */}
                   {/* <button className='btn-color'>Click</button> */}
-                  <button className="btn-secondary mx-4 my-2">Live demo</button>
+                  <button className="btn-secondary mx-4 my-2">{t('tutorialBtn')}</button>
                   {/* <div className="mt-3 sm:mt-0 sm:ml-3">
               <a href="#" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 md:py-4 md:text-lg md:px-10">
                 Live demo
@@ -62,7 +61,7 @@ function Home({menus}) {
 
 export default Home
 
-export async function getServerSideProps({locale}) {
+export const getServerSideProps=async({locale})=>{
   const fs=require('fs')
   var file=await fs.readFileSync('./Users/site.json','utf-8')
 
@@ -72,7 +71,21 @@ export async function getServerSideProps({locale}) {
     props: {
       ...await serverSideTranslations(locale, ['common', 'footer','header']),
       menus:jsObj
-    }, // will be passed to the page component as props
+    }
   }
 }
+
+// export async function getServerSideProps({locale}) {
+//   const fs=require('fs')
+//   var file=await fs.readFileSync('./Users/site.json','utf-8')
+
+//     var jsObj=JSON.parse(file)
+//     console.log(jsObj)
+//   return {
+//     props: {
+//       ...await serverSideTranslations(locale, ['common', 'footer','header']),
+//       menus:jsObj
+//     }, // will be passed to the page component as props
+//   }
+// }
 

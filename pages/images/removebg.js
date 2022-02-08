@@ -3,6 +3,10 @@ import React, { useEffect, useRef, useState } from "react";
 import Layout from "../../components/layouts/layout";
 import Canvas from "../../components/tools/canvas";
 
+
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 export default function RemoveBg() {
   const [imageData, setImageData] = useState({file:'', width: 500, height: 400,isJobDone:false })
   const [outputUrl,setOutputUrl]=useState({url:'',text:''})
@@ -80,7 +84,7 @@ export default function RemoveBg() {
       0,
     ];
   }
-  function removeBackground() {
+  function removeBackground({menus}) {
     const removeBg = (ctx) => {
       //step 1: get bitArray Data
       let img = ctx.getImageData(0, 0, imageData.width, imageData.height);
@@ -128,7 +132,7 @@ export default function RemoveBg() {
   }
 
   return (
-    <Layout>
+    <Layout menus={menus}>
 
     <div className="h-screen w-full my-2 justify-center min-h-fit pl-48 pr-48">
       <div className="w-full  bg-gray-400 grid row-auto justify-center border-2 p-2 min-h-min border-dashed">
@@ -169,14 +173,19 @@ export default function RemoveBg() {
     </Layout>
   );
 }
-// RemoveBg.getLayout = function getLayout(page) {
-//   return (
-//       <RecoilRoot>
-//       <GlobalLayout>
-//           <Layout>
-//         {page}
-//           </Layout>
-//       </GlobalLayout>
-//       </RecoilRoot>);
-  
-// }
+
+
+
+export async function getServerSideProps({locale}) {
+  const fs=require('fs')
+  var file=await fs.readFileSync('./Users/site.json','utf-8')
+
+    var jsObj=JSON.parse(file)
+    console.log(jsObj)
+  return {
+    props: {
+      ...await serverSideTranslations(locale, ['common', 'footer','header']),
+      menus:jsObj
+    }, // will be passed to the page component as props
+  }
+}

@@ -7,6 +7,7 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useMounted } from "../hooks/useMounted";
 import { useUser } from "@auth0/nextjs-auth0";
+import { useTranslation } from "react-i18next";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -18,6 +19,7 @@ function Header({ menus }) {
   const currentMenus = hasMounted ? menus : null;
   const currentUser = hasMounted ? user : null;
   const router = useRouter();
+  const {t}=useTranslation('common')
   return currentMenus ? (
     <Disclosure as="nav" className="bg-transparent">
       {({ open }) => (
@@ -26,7 +28,7 @@ function Header({ menus }) {
             <div className="relative flex items-center justify-between h-16">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
-                <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <Disclosure.Button className="inline-flex items-center justify-center mx-1 p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XIcon className="block h-6 w-6" aria-hidden="true" />
@@ -43,7 +45,7 @@ function Header({ menus }) {
                     </div>
                   </Link>
                 </div>
-                <div className="hidden mt-2 sm:block sm:ml-6">
+                <div className="hidden mt-2 sm:block sm:ml-10">
                   <div className="flex space-x-4">
                     {currentMenus.map((item) => (
                       <a
@@ -63,7 +65,7 @@ function Header({ menus }) {
                           item.href === router.pathname ? "page" : undefined
                         }
                       >
-                        {item.name}
+                        {t(item.name)}
                       </a>
                     ))}
                   </div>
@@ -71,13 +73,13 @@ function Header({ menus }) {
               </div>
 
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <Menu as="div" className="mx-0 relative">
+                <Menu as="div" className="mx-0 relative hidden sm:block">
                   <div>
                     <Menu.Button className="bg-white flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                       <span className="sr-only">Switch language</span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-10 w-10 mx-1 stroke-gray-200 md:stroke-sky-400 hover:stroke-purple-400"
+                        className="h-8 w-8 mx-1 stroke-sky-400 hover:stroke-purple-400"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -216,7 +218,7 @@ function Header({ menus }) {
                       
                       className="flex items-center cursor-pointer shadow-slate-400 pr-2 sm:static sm:inset-auto sm:ml-6"
                     >
-                      <span className="text-lg hover:underline text-sky-600 decoration-green-400 underline-2 underline-offset-4">Login
+                      <span className="text-lg hover:underline text-sky-600 decoration-green-400 underline-2 underline-offset-4">{t('loginBtn')}
                         </span>
                     </a>
                   </Link>
@@ -233,7 +235,7 @@ function Header({ menus }) {
                 <div
                   key={item.name}
                   onClick={() =>
-                    router.push(item.href, item.href, { locale: currentLang })
+                    router.push(item.href, item.href, { locale: router.locale })
                   }
                   className={classNames(
                     item.href === router.pathname
@@ -243,9 +245,28 @@ function Header({ menus }) {
                   )}
                   aria-current={item.href === router.pathname ? "page" : undefined}
                 >
-                  <a href="#">{item.name}</a>
+                  <a href="#">{t(item.name)}</a>
                 </div>
               ))}
+              <button className="flex items-center mx-2"
+               onClick={()=>router.push(router.pathname,router.pathname,{locale:router.locales.find(f=>f!==router.locale)})}>
+              <span className="sr-only">Switch language</span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-8 w-18 mx-1 stroke-sky-400 hover:stroke-purple-400"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1}
+                          d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                        />
+                      </svg>
+                      <span className="text-center ml-4">{router.locale==='zh'?"中文":"English"}</span>
+              </button>
             </div>
           </Disclosure.Panel>
         </>

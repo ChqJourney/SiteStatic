@@ -10,14 +10,14 @@
         "id":"ipsearch",
         "name":"ip address query",
         "description":"simply remove background of pure background color images",
-        "href":"/images/removebg",
+        "href":"/misc/ipsearch",
         "icon":""
     },
     {
-        "id":"image_removebg3",
-        "name":"remove background of images",
-        "description":"simply remove background of pure background color images",
-        "href":"/images/removebg",
+        "id":"cut image to standard size",
+        "name":"cut image to standard size",
+        "description":"simply resize or cut images to certain size you want",
+        "href":"/images/photo",
         "icon":""
     },
     {

@@ -1,23 +1,27 @@
 import Layout from "../../components/layouts/layout"
 
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export default function ResizeImg(){
+export default function ResizeImg({menus}){
     return (
 
-        <Layout>Resize img</Layout>
+        <Layout menus={menus}>Resize img</Layout>
 
     )
 }
 
     
-// ResizeImg.getLayout = function getLayout(page) {
-//     return (
-//         <RecoilRoot>
-//         <GlobalLayout>
-//             <Layout>
-//           {page}
-//             </Layout>
-//         </GlobalLayout>
-//         </RecoilRoot>);
-    
-//   }
+export async function getServerSideProps({locale}) {
+    const fs=require('fs')
+    var file=await fs.readFileSync('./Users/site.json','utf-8')
+  
+      var jsObj=JSON.parse(file)
+      console.log(jsObj)
+    return {
+      props: {
+        ...await serverSideTranslations(locale, ['common', 'footer','header']),
+        menus:jsObj
+      }, // will be passed to the page component as props
+    }
+  }
