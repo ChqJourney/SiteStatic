@@ -2,7 +2,10 @@ import Head from "next/head";
 import Layout from "../components/layouts/layout";
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import heroImg from "/public/assets/hero-img.jpeg"
+import ip from '/public/assets/ipsearch.png'
 import { Router } from "next/router";
+import Image from "next/image";
 
 function Home({menus}) {
   const {t}=useTranslation('common')
@@ -29,30 +32,27 @@ function Home({menus}) {
                 <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
                   {t('heroDescription')}
                 </p>
-                <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+                <div className="mt-5 sm:mt-28 sm:flex sm:justify-center lg:justify-start">
                   <button className="btn-color mx-4 my-2">{t('startBtn')}</button>
-                  {/* <div className="rounded-md shadow">
-              <a href="#" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
-                Get started
-              </a>
-            </div> */}
-                  {/* <button className='btn-color'>Click</button> */}
+                 
                   <button className="btn-secondary mx-4 my-2">{t('tutorialBtn')}</button>
-                  {/* <div className="mt-3 sm:mt-0 sm:ml-3">
-              <a href="#" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 md:py-4 md:text-lg md:px-10">
-                Live demo
-              </a>
-            </div> */}
+                  
                 </div>
               </div>
             </div>
           </div>
         </div>
-        
+        <div className="hidden lg:block lg:absolute lg:inset-y-0 z-0 w-full lg:right-0 lg:w-1/2">
+          <Image src={heroImg} alt="hero image" className="w-full rounded-full" layout="responsive"></Image>
+       
       </div>
-      <div className="absolute bg-lime-500 w-48 h-48 right-24 top-64 rounded-full bg-blend-multiply blur-3xl"></div>
-        <div className="absolute bg-amber-500 w-48 h-48 my-auto mx-auto left-0 right-0 top-0 bottom-0 rounded-full bg-blend-multiply blur-2xl"></div>
-        <div className="absolute bg-sky-500 w-72 h-72 right-64 top-96 rounded-full bg-blend-multiply blur-2xl"></div>
+      </div>
+      {/* <div className="w-96 h-48">
+        <Image src={ip} className="" alt="ip search pic"></Image>
+      </div> */}
+      <div className="absolute bg-lime-500 w-48 h-48 left-24 top-64 rounded-full bg-blend-multiply blur-3xl"></div>
+        <div className="absolute bg-amber-500 w-24 h-24  sm:w-48 sm:h-48 my-auto mx-auto left-0 right-0 top-0 bottom-0 rounded-full bg-blend-multiply blur-2xl"></div>
+        <div className="absolute bg-sky-500 w-24 sm:w-72 h-24 sm:h-72 left-48 top-36 rounded-full bg-blend-multiply blur-2xl"></div>
     </Layout>
   );
 }
@@ -75,17 +75,4 @@ export const getServerSideProps=async({locale})=>{
   }
 }
 
-// export async function getServerSideProps({locale}) {
-//   const fs=require('fs')
-//   var file=await fs.readFileSync('./Users/site.json','utf-8')
-
-//     var jsObj=JSON.parse(file)
-//     console.log(jsObj)
-//   return {
-//     props: {
-//       ...await serverSideTranslations(locale, ['common', 'footer','header']),
-//       menus:jsObj
-//     }, // will be passed to the page component as props
-//   }
-// }
 

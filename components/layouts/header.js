@@ -1,6 +1,6 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import Image from "next/image";
-import brand from "../../public/assets/brand-color-nobg.png";
+import brand from "../../public/assets/brand-big.png";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
@@ -38,7 +38,7 @@ function Header({ menus }) {
                 </Disclosure.Button>
               </div>
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex-shrink-0 mt-2 ml-2 flex items-center">
+                <div className="flex-shrink-0 ml-2 flex items-center">
                   <Link href="/" passHref>
                     <div className="h-12 w-32 inline-block ml-2 cursor-pointer pt-1 md:pt-2">
                       <Image src={brand} alt="brand" layout="responsive" />

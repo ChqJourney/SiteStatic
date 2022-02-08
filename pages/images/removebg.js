@@ -7,7 +7,7 @@ import Canvas from "../../components/tools/canvas";
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export default function RemoveBg() {
+export default function RemoveBg({menus}) {
   const [imageData, setImageData] = useState({file:'', width: 500, height: 400,isJobDone:false })
   const [outputUrl,setOutputUrl]=useState({url:'',text:''})
   function imageSelected(e) {

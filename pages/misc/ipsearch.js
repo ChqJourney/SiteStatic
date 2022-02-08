@@ -2,104 +2,57 @@ import { useEffect, useState } from "react";
 import Layout from "../../components/layouts/layout";
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { IPBox } from "../../components/tools/ipbox";
+import { SWRConfig } from "swr";
 
-function removezeroInfo(regions){
-  if(!regions){
+
+
+export const fetcher=(...args)=>fetch(args).then((res)=>res.json())
+export default function IpSearch({menus,fallback}) {
     
-  }else{
 
-    var arr= regions.split("|").filter(f=>f!="0")
-    return arr.join("，")
-  }
-}
-async function fetchIpInfo(ip) {
-    if(!f_check_IP(ip)){
-        alert("not a IP address with correct format")
-        return
-    }
-    const res = await fetch(`https://47.104.61.109/ipsearchwithaddr?searchIp=${ip}`);
-    const body = await res.json();
-    console.log(body)
-    return body.data
-  }
-function f_check_IP(ip)    
-{  
-   var re=/^(\d+)\.(\d+)\.(\d+)\.(\d+)$/;//正则表达式   
-   if(re.test(ip))   
-   {   
-       if( RegExp.$1<256 && RegExp.$2<256 && RegExp.$3<256 && RegExp.$4<256) 
-       return true;   
-   }   
-   
-   return false;    
-}
+    // useEffect(()=>{
+    //     getClientIp().then(res=>setClientIp(res))
+    //     async function getClientIp() {
+    //         const res = await fetch("https://47.104.61.109/ipwithaddr");
+    //         const body = await res.json();
+    //         console.log(body)
+    //         return body.data;
+    //       }
+    // },[])
 
-export default function IpSearch({menus}) {
-    const [clientIp,setClientIp]=useState("")
-    const [searchIp,setSearchIp]=useState("")
-    const [seartchIpInfo,setSearchIpInfo]=useState({ipAddress:"",regions:""})
-    function searchIpAddr(e,ip){
-        e.preventDefault()
-        fetchIpInfo(ip).then(res=>{
-            if(res){
-                const regions=res.regions.split("，")
-                setSearchIpInfo(res)
-            }
-        })
-    }
-    
-    useEffect(()=>{
-        getClientIp().then(res=>setClientIp(res))
-        async function getClientIp() {
-            const res = await fetch("https://47.104.61.109/ipwithaddr");
-            const body = await res.json();
-            console.log(body)
-            return body.data;
-          }
-    },[])
   return (
     <Layout menus={menus}>
+    <div className="container py-10 mx-auto justify-center grid grid-cols-4 gap-4 relative">
+      <SWRConfig value={{fallback}}>
 
-    <div className="container py-10 mx-auto justify-center grid grid-cols-4 gap-4">
-      <div className="flex text-center col-span-4 justify-center">
-        <p className="text-center text-xl">您的IP地址为</p>
-        <div className=" text-xl text-red-300">{clientIp.ipAddress}</div>
-        <div className=" text-xl">，</div>
-      </div>
-      <div className="flex text-center col-span-4 justify-center">
-        <p className="text-xl">您位于</p>
-        <div className=" text-sky-800 text-xl">{removezeroInfo(clientIp.regions)}</div>
-        <div className=" text-xl">！</div>
-      </div>
-      <div className="flex items-center justify-center col-span-4 md:col-span-2 md:col-start-2 ">
-        <input
-          type="text"
-          name="ipAddress"
-          id="ipAddress" onChange={(e)=>setSearchIp(e.target.value)}
-          className="mt-1 h-8 select-auto text-center text-2xl focus:ring-indigo-500 focus:border-indigo-500 block w- shadow-sm sm:text-sm border-gray-500 px-1 border-2 rounded-md"
-        />
-        <button className="mx-2 w-36 h-8 btn-color" onClick={(e)=>searchIpAddr(e,searchIp)}>查询</button>
-      </div>
-      <div className="col-span-4 md:col-span-2 md:col-start-2 flex justify-center">
-
-      <p className="text-2xl h-64 text-amber-700">{removezeroInfo(seartchIpInfo.regions)}</p>
-      </div>
+      <IPBox/>
+      <div className="absolute hidden sm:block bg-lime-100 sm:bg-lime-500 w-48 h-48 left-16 top-64 rounded-full bg-blend-multiply blur-3xl"></div>
+        <div className="absolute hidden sm:block bg-amber-100 sm:bg-amber-500 w-36 h-36 right-16 bottom-32 rounded-full bg-blend-multiply blur-2xl"></div>
+        <div className="absolute hidden sm:block bg-sky-100 sm:bg-sky-500 w-24  h-24  right-8 top-24 rounded-full bg-blend-multiply blur-2xl"></div>
+       
+      </SWRConfig>
     </div>
     </Layout>
   );
 }
 
 
-export async function getServerSideProps({locale}) {
+export async function getStaticProps({locale}) {
   const fs=require('fs')
   var file=await fs.readFileSync('./Users/site.json','utf-8')
 
     var jsObj=JSON.parse(file)
-    console.log(jsObj)
+    var res=await fetch("https://47.104.61.109/ipwithaddr")
+    var clientIp=await res.json()
+
   return {
     props: {
       ...await serverSideTranslations(locale, ['common', 'footer','header']),
-      menus:jsObj
+      menus:jsObj,
+      fallback:{
+        'https://47.104.61.109/ipwithaddr':clientIp
+      }
     }, // will be passed to the page component as props
   }
 }

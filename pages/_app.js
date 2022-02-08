@@ -8,10 +8,9 @@ function MyApp({ Component, pageProps }) {
   if (process.env.NODE_ENV === "production") {
     console.log = () => {};
   }
-  console.log(process.env.NODE_ENV);
+  
   return (
     <UserProvider>
-
       <Component {...pageProps} />
     </UserProvider>
   );
