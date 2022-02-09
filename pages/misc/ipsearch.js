@@ -16,7 +16,6 @@ export default function IpSearch({menus,fallback}) {
     <Layout menus={menus}>
     <div className="container py-10 mx-auto justify-center grid grid-cols-4 gap-4 relative">
       <SWRConfig value={{fallback}}>
-
       <IPBox/>
       <div className="absolute hidden sm:block bg-lime-100 sm:bg-lime-500 w-48 h-48 left-16 top-64 rounded-full bg-blend-multiply blur-3xl"></div>
         <div className="absolute hidden sm:block bg-amber-100 sm:bg-amber-500 w-36 h-36 right-16 bottom-32 rounded-full bg-blend-multiply blur-2xl"></div>

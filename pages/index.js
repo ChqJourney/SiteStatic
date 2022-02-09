@@ -12,7 +12,7 @@ import { ContentCard } from "../components/layouts/contentCard";
 
 function Home({ menus }) {
   const { t } = useTranslation("common");
-
+ 
   return (
     <Layout menus={menus}>
       <Head>
@@ -60,8 +60,7 @@ function Home({ menus }) {
       <div className="absolute bg-amber-500 w-24 h-24  sm:w-48 sm:h-48 left-24 top-36 rounded-full bg-blend-multiply blur-2xl"></div>
       <div className="absolute bg-sky-500 w-24 sm:w-72 h-24 sm:h-72 left-48 top-36 rounded-full bg-blend-multiply blur-2xl"></div>
       <div className="flex flex-col justify-center">
-          <SplitButton/>
-          <ContentCard/>
+         <ContentCard/>
         </div>
     
     
