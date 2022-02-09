@@ -34,6 +34,7 @@ export async function getServerSideProps(context) {
         menus: menus,
         post:postContent
       },
+      
     };
   }
 export default Post

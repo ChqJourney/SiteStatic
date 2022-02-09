@@ -1,3 +1,4 @@
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import Layout from '../components/layouts/layout'
@@ -66,15 +67,15 @@ function Blogs({ menus,posts }) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticProps({locale}) {
   const fs = require("fs");
   var file1 = await fs.readFileSync("./Users/site.json", "utf-8");
   var menus = JSON.parse(file1);
-  let recentPosts
+  let recentPosts=[]
   if(process.env.NODE_ENV==='production'){
 
-      var response=await fetch('')
-      recentPosts=await response.json()
+      // var response=await fetch('')
+      // recentPosts=await response.json()
   }else{
       recentPosts=
       [
@@ -86,7 +87,8 @@ export async function getServerSideProps(context) {
   return {
     props: {
       menus: menus,
-      posts:recentPosts
+      posts:recentPosts,
+      ...await serverSideTranslations(locale, ['common', 'footer','header']),
     },
   };
 }

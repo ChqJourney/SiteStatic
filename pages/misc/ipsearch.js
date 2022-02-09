@@ -11,15 +11,6 @@ export const fetcher=(...args)=>fetch(args).then((res)=>res.json())
 export default function IpSearch({menus,fallback}) {
     
 
-    // useEffect(()=>{
-    //     getClientIp().then(res=>setClientIp(res))
-    //     async function getClientIp() {
-    //         const res = await fetch("https://47.104.61.109/ipwithaddr");
-    //         const body = await res.json();
-    //         console.log(body)
-    //         return body.data;
-    //       }
-    // },[])
 
   return (
     <Layout menus={menus}>
@@ -53,6 +44,6 @@ export async function getStaticProps({locale}) {
       fallback:{
         'https://47.104.61.109/ipwithaddr':clientIp
       }
-    }, // will be passed to the page component as props
+    }
   }
 }

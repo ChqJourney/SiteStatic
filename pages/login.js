@@ -127,14 +127,3 @@ export default function Login(){
   
     )
 }
-
-// Login.getLayout = function getLayout(page) {
-//   return (
-//     <RecoilRoot>
-
-//     <GlobalLayout>
-//       {page}
-//     </GlobalLayout>
-//     </RecoilRoot>
-//   )
-// }

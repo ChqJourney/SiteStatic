@@ -176,7 +176,7 @@ export default function RemoveBg({menus}) {
 
 
 
-export async function getServerSideProps({locale}) {
+export async function getStaticProps({locale}) {
   const fs=require('fs')
   var file=await fs.readFileSync('./Users/site.json','utf-8')
 

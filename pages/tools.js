@@ -15,7 +15,7 @@ function Tools({ tools,menus }) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   const fs = require("fs");
   var file = await fs.readFileSync("./Users/tools.json", "utf-8");
   var file1 = await fs.readFileSync("./Users/site.json", "utf-8");

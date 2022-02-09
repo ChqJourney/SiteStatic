@@ -20,7 +20,7 @@ export default function Tutorial({menus}){
     )
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
     const fs = require("fs");
     var file1 = await fs.readFileSync("./Users/site.json", "utf-8");
     var menus=JSON.parse(file1)
