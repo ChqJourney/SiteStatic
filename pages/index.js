@@ -82,7 +82,7 @@ function Home({ menus }) {
 
 export default Home;
 
-export const getStaticProps = async ({ locale }) => {
+export const getServerSideProps = async ({ locale }) => {
   const fs = require("fs");
   var file = await fs.readFileSync("./Users/site.json", "utf-8");
 
