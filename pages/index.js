@@ -82,7 +82,7 @@ function Home({ menus }) {
 
 export default Home;
 
-export const getServerSideProps = async ({ locale }) => {
+export const getStaticProps = async ({ locale }) => {
   const fs = require("fs");
   var file = await fs.readFileSync("./Users/site.json", "utf-8");
 
@@ -92,6 +92,8 @@ export const getServerSideProps = async ({ locale }) => {
     props: {
       ...(await serverSideTranslations(locale, ["common", "footer", "header"])),
       menus: jsObj,
+      
     },
+    revalidate:true
   };
 };
