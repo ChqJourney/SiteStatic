@@ -212,7 +212,7 @@ function Header({ menus }) {
                 ) : (
                   <Menu as="div" className="mx-0 relative">
                     <Menu.Button className="bg-white flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                  <Link href="/api/auth/login" passHref>
+                  <Link href={`/api/auth/login?returnTo=${router.pathname}`} passHref>
                   
                     <a
                       
