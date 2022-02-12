@@ -10,7 +10,6 @@ export const ContentCard=({picEle,title,description,href})=>{
     return (
         <div className='max-w-7xl col-span-4 md:col-span-2 text-center xl:col-span-4 static xl:flex items-center px-4 w-full border rounded-lg'>
            <div className='flex justify-center mt-4'>
-
            {picEle}
            </div>
             <div className='flex flex-col justify-center ml-8 h-48'>

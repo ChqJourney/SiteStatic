@@ -66,8 +66,8 @@ function Home({ menus }) {
       <div className="mx-auto text-4xl text-center font-medium text-sky-800 my-4">Existing tools as below, please waiting for more exciting stuff......</div>
       <div className="grid top-12 px-10 grid-cols-4 gap-4 max-w-7xl mx-auto">
          <ContentCard picEle={svgEle} 
-         title={"awesome background remover for pure color images"}
-         description={"you can remove any colored background from your images, it is very helpful for you to create photo for your different kind of IDs."}
+         title={"awesome background remove tool for images"}
+         description={"you can remove any colored background from your images, it is very helpful for you to create photo for your different kind of IDs.please try."}
          href={"/images/removebg"}
          />
          <ContentCard picEle={ipSVG} 
@@ -87,7 +87,6 @@ export const getStaticProps = async ({ locale }) => {
   var file = await fs.readFileSync("./Users/site.json", "utf-8");
 
   var jsObj = JSON.parse(file);
-  console.log(jsObj);
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common", "footer", "header"])),
