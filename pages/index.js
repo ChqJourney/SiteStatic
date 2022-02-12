@@ -92,7 +92,6 @@ export const getStaticProps = async ({ locale }) => {
       ...(await serverSideTranslations(locale, ["common", "footer", "header"])),
       menus: jsObj,
       
-    },
-    revalidate:true
+    }
   };
 };
