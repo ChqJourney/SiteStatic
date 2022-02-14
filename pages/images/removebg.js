@@ -123,29 +123,31 @@ export default function RemoveBg({menus}) {
       ctx.putImageData(img, 0, 0);
      
     };
-    setImageData({ ...imageData, modify: removeBg,isJobDone:true });
-    const data=outputAction()
-    setOutputUrl(data)
+    setImageData({ ...imageData, modify: removeBg });
   }
-  function outputAction(){
-    
+  function outputAction(data){
+    setOutputUrl(data)
   }
 
   return (
     <Layout menus={menus}>
 
-    <div className="h-screen w-full my-2 justify-center min-h-fit pl-48 pr-48">
-      <div className="w-full  bg-gray-400 grid row-auto justify-center border-2 p-2 min-h-min border-dashed">
+    <div className="h-screen my-10 mx-auto w-11/12 sm:w-10/12 lg:w-8/12">
+      <div className="text-center  text-lg lg:text-2xl font-medium text-gray-600">please upload your picture</div>
+      <div className="w-full rounded-md bg-gray-200 grid row-auto justify-center border-2 p-0 sm:p-4 overflow-auto min-h-min border-dashed">
         <Canvas
         file={imageData.file}
           width={imageData.width}
           height={imageData.height}
           draw={imageData.draw}
           modify={imageData.modify}
-          isJobDone={imageData.isJobDone}
+          output={outputAction}
         />
       </div>
-      
+      {outputUrl.url?(<div className="w-full h-12 underline flex items-center test-center justify-center text-sky-400 text-sm lg:text-lg">
+
+<a href={outputUrl.url??""} download={`revised-${imageData.file}`}>{outputUrl.text??""}</a>
+</div>):<div className="h-10 w-full"></div>}
       
       <div className="flex w-full items-center px-2 justify-center">
         <div className="btn-color flex items-center px-2 my-2">
@@ -155,7 +157,7 @@ export default function RemoveBg({menus}) {
             draggable
             className="w-full h-full flex items-center justify-center cursor-pointer rounded-md text-white"
           >
-            <span>Upload a file</span>
+            <span className="text-sm sm:text-lg">Upload an image</span>
             <input
               id="file-upload"
               name="file-upload"
@@ -165,7 +167,7 @@ export default function RemoveBg({menus}) {
           </label>
         </div>
 
-        <button className="mx-2 btn-color" onClick={removeBackground}>
+        <button className="mx-2 btn-color text-sm sm:text-lg" onClick={removeBackground}>
           Remove background
         </button>
       </div>

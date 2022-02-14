@@ -16,11 +16,11 @@ function classNames(...classes) {
 function Header({ menus }) {
   const { hasMounted } = useMounted(false);
   const { user, isLoading } = useUser();
-  const currentMenus = hasMounted ? menus : null;
+  // const currentMenus = hasMounted ? menus : null;
   const currentUser = hasMounted ? user : null;
   const router = useRouter();
   const {t}=useTranslation('common')
-  return currentMenus ? (
+  return  (
     <Disclosure as="nav" className="bg-transparent">
       {({ open }) => (
         <>
@@ -47,7 +47,7 @@ function Header({ menus }) {
                 </div>
                 <div className="hidden mt-2 sm:block sm:ml-10">
                   <div className="flex space-x-4">
-                    {currentMenus.map((item) => (
+                    {menus.map((item) => (
                       <a
                         key={item.name}
                         onClick={() =>
@@ -231,7 +231,7 @@ function Header({ menus }) {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {currentMenus.map((item) => (
+              {menus.map((item) => (
                 <div
                   key={item.name}
                   onClick={() =>
@@ -272,9 +272,7 @@ function Header({ menus }) {
         </>
       )}
     </Disclosure>
-  ) : (
-    <p>loading...</p>
-  );
+  )
 }
 
 export default Header;
