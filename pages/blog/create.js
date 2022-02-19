@@ -1,7 +1,8 @@
-import Layout from "../../components/layouts/layout"
+import Layout from "../../components/layouts/layout";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useRouter } from "next/router";
 
 const QuillNoSSRWrapper =
   typeof window === "object"
@@ -51,46 +52,81 @@ const formats = [
 ];
 
 function Create({ menus }) {
-  const [value, setValue] = useState("");
-  // let QuillNoSSRWrapper
-  // if(typeof window !== 'undefined'){
-
-  // }
+  const router=useRouter()
+  const [blog, setBlog] = useState({ title: "", keywords: "", content: "",createdBy:"patrick" });
+  const handleArticle = async (e) => {
+    e.preventDefault();
+    console.log(blog);
+    const response = await fetch("/api/blog", {
+      method: "POST",
+      body: JSON.stringify(blog),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+    if(response.ok){
+      const res=await response.json()
+      console.log(res)
+      
+    }
+  };
+  const clearAction=()=>setBlog({title:'',keywords:'',content:'',createdBy:'patrick'})
+ 
   return (
     <Layout menus={menus}>
-      <div className="container mx-auto mt-12 ">
-          <p className="text-2xl font-medium text-center">Create your new blog</p>
-        <form className="grid grid-flow-row auto-rows-max hover:auto-rows-min m-6">
+      <div className="container mx-auto mt-12 px-2 w-full md:w-10/12 lg:w-8/12">
+        <p className="text-2xl font-medium text-center">Create your new blog</p>
+        <div className="flex flex-col" >
           <label>your blog title</label>
-          <input type="text" className=" border-2 pl-1 shadow-sm shadow-purple-400"  placeholder="blog title"></input>
+          <input
+            type="text" value={blog.title}
+            onChange={(e) => setBlog({ ...blog, title: e.target.value })}
+            className="h-8 border pl-1 border-slate-300 rounded-md"
+            placeholder="blog title"
+          ></input>
           <label>your blog key words</label>
-          <input type="text" className=" border-2 pl-1 shadow-sm shadow-purple-400"  placeholder="blog key words"></input>
-          <label>main content</label>
-          <QuillNoSSRWrapper
-            className="h-[500px] border-2 mt-1 pl-1 shadow-sm shadow-sky-400"
-            value={value}
-            onChange={(e) => console.log(e)}
-            modules={modules}
-            formats={formats}
-            placeholder="write your blog here..."
-            theme="bubble"
-          ></QuillNoSSRWrapper>
-          <div className="flex">
-          <button className="mt-10 btn-secondary mx-auto">Clear</button>
-          <button className="mt-10 btn-color mx-auto">Save</button>
+          <input
+            type="text" value={blog.keywords}
+            onChange={(e) => setBlog({ ...blog, keywords: e.target.value })}
+            className="h-8 border border-slate-300 rounded-md pl-1"
+            placeholder="blog key words"
+          ></input>
+          <label className="mb-4">main content</label>
+          <div className="border border-slate-300 rounded-md">
+            <QuillNoSSRWrapper
+              className="h-[400px]"
+              value={blog.content}
+              onChange={(e) => setBlog({ ...blog, content: e })}
+              modules={modules}
+              formats={formats}
+              placeholder="write your blog here..."
+              theme="snow"
+            ></QuillNoSSRWrapper>
           </div>
-        </form>
+          <div className="flex">
+            <button className="mt-10 w-36 lg:w-48 btn-secondary mx-auto" onClick={clearAction}>
+              Clear
+            </button>
+            <button onClick={async(e)=>await handleArticle(e)}
+              className="mt-10 w-36 lg:w-48 btn-color mx-auto"
+              type="submit"
+            >
+              Save
+            </button>
+          </div>
+        </div>
       </div>
     </Layout>
   );
 }
 
-export async function getStaticProps(context) {
+export async function getStaticProps({ locale }) {
   const fs = require("fs");
   var file1 = await fs.readFileSync("./Users/site.json", "utf-8");
   var menus = JSON.parse(file1);
   return {
     props: {
+      ...(await serverSideTranslations(locale, ["common", "footer", "header"])),
       menus: menus,
     },
   };

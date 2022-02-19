@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import brand from "../../public/assets/brand-big.png";
@@ -139,9 +140,7 @@ function Header({ menus }) {
                     <div>
                       <Menu.Button className="bg-white flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                         <span className="sr-only">Open user menu</span>
-                        {/* <div className="h-8 w-8 inline-block"> */}
-                        {/* <img alt="adf" className="h-8 w-8 inline-block" src="/public/assets/avatars/man.png"/> */}
-                        {/* </div> */}
+                       
                         <img
                           className="h-8 w-8 rounded-full"
                           src={

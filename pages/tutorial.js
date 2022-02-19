@@ -4,7 +4,11 @@ import { SiderBar } from "../components/siderbar/siderbar";
 
 export default function Tutorial({menus}){
     let siderMenus=[
-        {id:1,text:"ip tools",href:"/ipsearch"},
+        {id:1,text:"ip tools",href:"/ipsearch",subMenu:[
+          {id:5,text:'ip box1',href:'/misc/ipsearch'},
+          {id:6,text:'ip box2',href:'/misc/ipsearch'},
+          {id:7,text:'ip box3',href:'/misc/ipsearch'},
+        ]},
         {id:2,text:"ip tools",href:"/ipsearch"},
         {id:3,text:"ip tools",href:"/ipsearch"},
         {id:4,text:"ip tools",href:"/ipsearch"},

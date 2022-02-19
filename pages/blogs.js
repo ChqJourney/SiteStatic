@@ -3,59 +3,9 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import Layout from '../components/layouts/layout'
 
-const QuillNoSSRWrapper =
-  typeof window === "object"
-    ? dynamic(import("react-quill"), {
-        ssr: false,
-      })
-    : () => false;
-
-const modules = {
-  toolbar: [
-    [{ header: "1" }, { header: "2" }, { font: [] }],
-    [{ size: [] }],
-    ["bold", "italic", "underline", "strike", "blockquote"],
-    [
-      { list: "ordered" },
-      { list: "bullet" },
-      { indent: "-1" },
-      { indent: "+1" },
-    ],
-    ["link", "image", "video"],
-    ["clean"],
-  ],
-  clipboard: {
-    // toggle to add extra line breaks when pasting HTML:
-    matchVisual: false,
-  },
-};
-/*
- * Quill editor formats
- * See https://quilljs.com/docs/formats/
- */
-const formats = [
-  "header",
-  "font",
-  "size",
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "blockquote",
-  "list",
-  "bullet",
-  "indent",
-  "link",
-  "image",
-  "video",
-];
 
 function Blogs({ menus,posts }) {
-  const [value, setValue] = useState("");
-  // let QuillNoSSRWrapper
-  // if(typeof window !== 'undefined'){
-
-  // }
+  
   return (
     <Layout menus={menus}>
       <div className="container mx-auto mt-12 ">
