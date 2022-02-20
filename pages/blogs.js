@@ -8,13 +8,14 @@ function Blogs({fallback}) {
   console.log(fallback)
   return (
     <SWRConfig value={{fallback}}>
+      <div className="text-3xl font-semibold text-center mt-20">Recently blogs</div>
       <BlogBlockContainer/>
     </SWRConfig>
    
   );
 }
 export async function getStaticProps({locale}) {
-  const blogs=await prisma.blog.findMany({where:{createdAt:{gte:new Date("2022-02-17")}}})
+  const blogs=await prisma.blog.findMany({where:{createdAt:{gte:new Date("2022-02-17")},isPreview:false}})
  
   // let newBlogs=blogs.map(m=>{m.createdAt=Math.floor(m.createdAt/1000);m.updatedAt=Math.floor(m.updatedAt/1000);return m;})
   return {

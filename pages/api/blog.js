@@ -25,7 +25,7 @@ export default async function handler(req, res) {
             break
           case "POST":
               const blogPost = await prisma.blog.create({ data: req.body });
-          res.status(201).json({ data: blogPost });
+              res.status(201).json({'location':`/blog?id=${blogPost.id}`});
             break
           case "PUT":
               const toBeUpdate=req.body

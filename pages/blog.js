@@ -7,7 +7,6 @@ import prisma from "../prisma/instance";
 
 // const prisma=new PrismaClient()
 
-const fetcher=(...args)=>fetch(...args).then(data=>data.json())
 
 const Blog=({fallback})=>{
   const router=useRouter()

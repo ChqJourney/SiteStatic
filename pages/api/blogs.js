@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-// import prisma from "../../prisma/instance";
+// import { PrismaClient } from "@prisma/client";
+import prisma from "../../prisma/instance";
 
 function exclude(blog, ...keys) {
   for (let key of keys) {
@@ -8,12 +8,14 @@ function exclude(blog, ...keys) {
   return blog;
 }
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
-    
-    const blogs=await prisma.blog.findMany({where:{createdAt:{gte:new Date("2022-02-17")}}})
+    const blogs=await prisma.blog.findMany({where:{createdAt:{gte:new Date("2022-02-17")}},isPreview:false})
     res.status(200).json({data:blogs})
+  }else{
+
+    res.status(403).json({msg:"not found"})
   }
 }

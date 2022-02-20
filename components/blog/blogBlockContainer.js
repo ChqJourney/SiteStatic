@@ -1,3 +1,5 @@
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React from 'react'
 import useSWR from 'swr'
 import { fetcher } from '../../pages/misc/ipsearch'
@@ -14,15 +16,21 @@ export const BlogBlockContainer=()=>{
     )
 }
 export const BlogBlock=({blog})=>{
-    console.log(blog)
     return (
-        <div className=' flex flex-col max-w-3xl lg:ml-auto xl:max-w-none xl:w-[50rem]'>
-            <span className='class="text-sm font-light text-gray-600'>{blog.createdAt.toString()}</span>
-            <a href='#' className='block mt-2 text-xl font-bold text-gray-800 capitalize sm:text-2xl md:text-3xl hover:underline hover:text-blue-500'>{blog.title}</a>
-            <p className='mt-2 text-gray-600'>{blog.keywords}</p>
-            <a className='inline-flex items-center mt-4 text-gray-800 hover:underline'>
-               <h3 className='font-medium'>{blog.createdBy}</h3>
-            </a>
+        <div className=' flex flex-col bg-slate-100 rounded-lg container mx-auto max-w-3xl xl:max-w-none xl: w-3/5'>
+            <Link href={`/blog?id=${blog.id}`} passHref>
+            <a href='' className='block mt-2 text-xl font-bold text-center text-gray-600 capitalize sm:text-2xl md:text-3xl hover:underline cursor-pointer hover:text-blue-500'>{blog.title}</a>
+            </Link>
+            <span className='class="text-sm font-light text-orange-600 text-center'>{blog.createdAt.toDateString()}</span>
+            <div className='mt-2 text-gray-600 mx-2 border border-orange-300 rounded-md h-28 overflow-auto'>
+            <div className="ql-editor" dangerouslySetInnerHTML={{__html: blog.content}}></div>
+                </div>
+           <div className='flex items-center justify-between mt-4 ml-3'>
+               <button className='h-8 w-24 bg-slate-300 text-orange-600 rounded-md'>Read more</button>
+               <a className='inline-flex items-center mx-2 text-gray-800 hover:underline'>
+                   <h3 className='font-medium font-sans text-orange-400'>{blog.createdBy}</h3>
+               </a>
+            </div> 
         </div>
     )
 }
