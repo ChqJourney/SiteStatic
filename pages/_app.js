@@ -6,7 +6,7 @@ import { UserProvider } from "@auth0/nextjs-auth0";
 import Layout from "../components/layouts/layout";
 
 function MyApp({ Component, pageProps }) {
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.NODE_ENV === "production"&&process.env.RUN_MODE!=='debug') {
     console.log = () => {};
   }
   
