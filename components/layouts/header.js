@@ -9,12 +9,13 @@ import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useMounted } from "../hooks/useMounted";
 import { useUser } from "@auth0/nextjs-auth0";
 import { useTranslation } from "react-i18next";
+import menus from '../../public/site/site.json'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-function Header({ menus }) {
+function Header() {
   const { hasMounted } = useMounted(false);
   const { user, isLoading } = useUser();
   // const currentMenus = hasMounted ? menus : null;

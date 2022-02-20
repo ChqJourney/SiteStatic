@@ -1,8 +1,8 @@
 
-import Layout from "../components/layouts/layout";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { SiderBar } from "../components/siderbar/siderbar";
 
-export default function Tutorial({menus}){
+export default function Tutorial(){
     let siderMenus=[
         {id:1,text:"ip tools",href:"/ipsearch",subMenu:[
           {id:5,text:'ip box1',href:'/misc/ipsearch'},
@@ -14,23 +14,20 @@ export default function Tutorial({menus}){
         {id:4,text:"ip tools",href:"/ipsearch"},
     ]
     return (
-        <Layout menus={menus}>
+       
 
         <div className="w-full h-screen container mx-auto flex flex-wrap pt-6">
            <SiderBar className="w-3/12 bg-white rounded shadow-lg" menus={siderMenus}/>
            <div className="w-9/12 ml-10">content</div>
         </div>
-        </Layout>
     )
 }
 
-export async function getStaticProps(context) {
-    const fs = require("fs");
-    var file1 = await fs.readFileSync("./Users/site.json", "utf-8");
-    var menus=JSON.parse(file1)
+export async function getStaticProps({locale}) {
+   
     return {
       props: {
-        menus:menus
+        ...(await serverSideTranslations(locale, ["common", "footer", "header"])),
       }, 
     };
   }

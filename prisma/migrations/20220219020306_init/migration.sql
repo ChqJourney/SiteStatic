@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE "BLog" (
+CREATE TABLE "Blog" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "title" TEXT NOT NULL,
     "keywords" TEXT,

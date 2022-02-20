@@ -1,44 +1,28 @@
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
-import Layout from '../components/layouts/layout'
+import { SWRConfig } from "swr";
+import prisma from "../prisma/instance";
+import { BlogBlockContainer } from "../components/blog/blogBlockContainer";
 
 
-function Blogs({ menus,posts }) {
-  
+function Blogs({fallback}) {
+  console.log(fallback)
   return (
-    <Layout menus={menus}>
-      <div className="container mx-auto mt-12 ">
-         {posts.map(p=>(
-             <div key={p.id}>{p.title}</div>
-         ))}
-      </div>
-    </Layout>
+    <SWRConfig value={{fallback}}>
+      <BlogBlockContainer/>
+    </SWRConfig>
+   
   );
 }
-
 export async function getStaticProps({locale}) {
-  const fs = require("fs");
-  var file1 = await fs.readFileSync("./Users/site.json", "utf-8");
-  var menus = JSON.parse(file1);
-  let recentPosts=[]
-  if(process.env.NODE_ENV==='production'){
-
-      // var response=await fetch('')
-      // recentPosts=await response.json()
-  }else{
-      recentPosts=
-      [
-          {id:1,title:"adfadf",content:"adfadfadfadfafdadf"},
-          {id:2,title:"adfadf",content:"adfadfadfadfafdadf"},
-          {id:3,title:"adfadf",content:"adfadfadfadfafdadf"},
-    ]
-  }
+  const blogs=await prisma.blog.findMany({where:{createdAt:{gte:new Date("2022-02-17")}}})
+ 
+  // let newBlogs=blogs.map(m=>{m.createdAt=Math.floor(m.createdAt/1000);m.updatedAt=Math.floor(m.updatedAt/1000);return m;})
   return {
     props: {
-      menus: menus,
-      posts:recentPosts,
       ...await serverSideTranslations(locale, ['common', 'footer','header']),
+      fallback:{
+        '/api/blogs':{data:blogs}
+      }
     },
   };
 }

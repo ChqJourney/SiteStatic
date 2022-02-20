@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import Layout from "../../components/layouts/layout";
-import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { IPBox } from "../../components/tools/ipbox";
 import { SWRConfig } from "swr";
@@ -8,7 +6,7 @@ import { SWRConfig } from "swr";
 
 
 export const fetcher=(...args)=>fetch(args).then((res)=>res.json())
-export default function IpSearch({menus,fallback}) {
+export default function IpSearch({fallback}) {
     
 
 
@@ -29,17 +27,14 @@ export default function IpSearch({menus,fallback}) {
 
 
 export async function getStaticProps({locale}) {
-  const fs=require('fs')
-  var file=await fs.readFileSync('./Users/site.json','utf-8')
-
-    var jsObj=JSON.parse(file)
+  
     var res=await fetch("https://47.104.61.109/ipwithaddr")
     var clientIp=await res.json()
 
   return {
     props: {
       ...await serverSideTranslations(locale, ['common', 'footer','header']),
-      menus:jsObj,
+     
       fallback:{
         'https://47.104.61.109/ipwithaddr':clientIp
       }

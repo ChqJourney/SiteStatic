@@ -1,13 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { imageConfigDefault } from "next/dist/server/image-config";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Draggable from "react-draggable";
-import Layout from "../../components/layouts/layout";
 import { SizeBox } from "../../components/tools/sizeBox";
 
-export default function IdCut({ menus }) {
+export default function IdCut() {
   const imageToCut = useRef();
   const cutRope = useRef();
   const paintBoard=useRef()
@@ -50,12 +48,9 @@ export default function IdCut({ menus }) {
       }
     }
   }
-  useEffect(() => {
-    // setUploadedImage({...uploadedImage,url:'/assets/ipbox.png'})
-  }, []);
+ 
   return (
-    <Layout menus={menus}>
-      <div className="container mx-auto mt-10 flex-col flex max-w-7xl">
+  <div className="container mx-auto mt-10 flex-col flex max-w-7xl">
         <div className="text-2xl font-medium text-gray-600 text-center">
           choose size
         </div>
@@ -135,18 +130,13 @@ export default function IdCut({ menus }) {
           </div>
         </div>
       </div>
-    </Layout>
   );
 }
 export const getStaticProps = async ({ locale }) => {
-  const fs = require("fs");
-  var file = await fs.readFileSync("./Users/site.json", "utf-8");
-
-  var jsObj = JSON.parse(file);
+  
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common", "footer", "header"])),
-      menus: jsObj,
     },
   };
 };

@@ -1,13 +1,8 @@
-import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
-import Layout from "../../components/layouts/layout";
+import React, { useState } from "react";
 import Canvas from "../../components/tools/canvas";
-
-
-import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export default function RemoveBg({menus}) {
+export default function RemoveBg() {
   const [imageData, setImageData] = useState({file:'', width: 500, height: 400,isJobDone:false })
   const [outputUrl,setOutputUrl]=useState({url:'',text:''})
   function imageSelected(e) {
@@ -130,7 +125,7 @@ export default function RemoveBg({menus}) {
   }
 
   return (
-    <Layout menus={menus}>
+   
 
     <div className="h-screen my-10 mx-auto w-11/12 sm:w-10/12 lg:w-8/12">
       <div className="text-center  text-lg lg:text-2xl font-medium text-gray-600">please upload your picture</div>
@@ -172,22 +167,18 @@ export default function RemoveBg({menus}) {
         </button>
       </div>
     </div>
-    </Layout>
+   
   );
 }
 
 
 
 export async function getStaticProps({locale}) {
-  const fs=require('fs')
-  var file=await fs.readFileSync('./Users/site.json','utf-8')
-
-    var jsObj=JSON.parse(file)
-    console.log(jsObj)
+ 
   return {
     props: {
       ...await serverSideTranslations(locale, ['common', 'footer','header']),
-      menus:jsObj
-    }, // will be passed to the page component as props
+     
+    },
   }
 }

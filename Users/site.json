@@ -1,7 +1,0 @@
-[
-  {"name":"Home","href":"/"},
-    { "name": "Tutorial", "href": "/tutorial" },
-    { "name": "Tools", "href": "/tools" },
-    {"name":"Blogs","href":"/blogs"}
-  ]
-

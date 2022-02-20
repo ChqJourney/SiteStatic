@@ -10,7 +10,7 @@ datasource db {
   url      = env("DB_FILE_PATH")
 }
 
-model BLog{
+model Blog{
   id String @id @default(uuid())
   title String
   keywords String?
