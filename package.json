@@ -8,6 +8,7 @@
     "production": "next build && next start",
     "start": "next start",
     "lint": "next lint",
+    "generate":"prisma generate",
     "migration:dev": "dotenv -e .env.development -- npx prisma migrate dev --name init",
     "migration:prod": "dotenv -e .env.production -- npx prisma migrate deploy"
   },
