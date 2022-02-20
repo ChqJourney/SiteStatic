@@ -1,4 +1,3 @@
-import Layout from "../../components/layouts/layout";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { IPBox } from "../../components/tools/ipbox";
 import { SWRConfig } from "swr";
@@ -11,7 +10,6 @@ export default function IpSearch({fallback}) {
 
 
   return (
-    <Layout menus={menus}>
     <div className="container py-10 mx-auto justify-center grid grid-cols-4 gap-4 relative">
       <SWRConfig value={{fallback}}>
       <IPBox/>
@@ -21,7 +19,6 @@ export default function IpSearch({fallback}) {
        
       </SWRConfig>
     </div>
-    </Layout>
   );
 }
 
