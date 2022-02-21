@@ -12,7 +12,7 @@ function exclude(blog, ...keys) {
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
-    const blogs=await prisma.blog.findMany({where:{createdAt:{gte:new Date("2022-02-17")}},isPreview:false})
+    const blogs=await prisma.blog.findMany({where:{createdAt:{gte:new Date("2022-02-17")},isPreview:false}})
     res.status(200).json({data:blogs})
   }else{
 

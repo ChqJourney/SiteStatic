@@ -61,17 +61,23 @@ const formats = [
 ];
 
 export const BlogCreator=({id})=>{
+  console.log(id)
     const [blog, setBlog] = useState({ title: "", keywords: "", content: "",createdBy:"patrick" });
     // const {data,err}=useSWR(['/api/blog',id],fetcher)
     useEffect(()=>{
         const getBlog=async(id)=>{
+          console.log(id)
             const response=await fetch(`/api/blog/${id}`)
             if(response.ok){
                 const res=await response.json()
+                console.log(res)
                 setBlog(res.data)
             }
         }
-        getBlog(id)
+        if(id){
+          
+          getBlog(id)
+        }
     },[])
     const router=useRouter()
   const handleArticle = async (e) => {
@@ -95,6 +101,7 @@ export const BlogCreator=({id})=>{
   const preview=useRef() 
     return (
         <>
+        <p className="text-2xl font-medium text-center">{id?"Edit your blog":"Create your new blog"}</p>
         <div className="flex flex-col" >
         <label className="text-xl mb-2">Your blog title</label>
         <input

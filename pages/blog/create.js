@@ -9,11 +9,9 @@ function Create() {
   const {editBlogId}=router.query
   
   return (
-  <div className="container mx-auto mt-12 px-2 w-full md:w-4/12 lg:w-6/12">
-        <p className="text-2xl font-medium text-center">Create your new blog</p>
+  <div className="container mx-auto mt-12 px-4 w-full md:w-8/12 lg:w-6/12">
+        
         <BlogCreator id={editBlogId??""}/>
-
-       
       </div>
   );
 }

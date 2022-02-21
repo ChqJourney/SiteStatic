@@ -5,7 +5,6 @@ import { BlogBlockContainer } from "../components/blog/blogBlockContainer";
 
 
 function Blogs({fallback}) {
-  console.log(fallback)
   return (
     <SWRConfig value={{fallback}}>
       <div className="text-3xl font-semibold text-center mt-20">Recently blogs</div>

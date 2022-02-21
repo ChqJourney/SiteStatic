@@ -16,7 +16,7 @@ export default async function handler(req, res) {
             console.log('get by id')
               const {id}=req.query
               console.log(id)
-              const blogGet=await prisma.blog.findFirst({where:{id:id}})
+              const blogGet=await prisma.blog.findUnique({where:{id:id}})
               if(blogGet){
                   res.status(200).json({data:blogGet})
               }else{
