@@ -1,21 +1,43 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
-import useSWR from 'swr'
+import React, { useState } from 'react'
+import useSWR, { useSWRConfig } from 'swr'
 import { fetcher } from '../../pages/misc/ipsearch'
+import { Pagination } from '../common/pagination'
 import { CircleSpinner } from '../layouts/spinner'
 
 export const BlogBlockContainer=()=>{
-    const {data,err}=useSWR('/api/blogs',fetcher)
-    if(!data)return<CircleSpinner/>
+    const [pageInfo,setPageInfo]=useState({pageSize:5,pageIndex:1})
+    const {data,err}=useSWR(`/api/blogs?pageIndex=${pageInfo.pageIndex}&pageSize=${pageInfo.pageSize}`,fetcher)
+    const pageSwitch=async(num)=>{
+        setPageInfo({...pageInfo,pageIndex:num})
+        
+    }
+    if(!data)return(<div className='w-full h-full mt-20 flex justify-center'><CircleSpinner/></div>)
     if(err)return <p>error...</p>
     return (
+        <>
+        
         <div className='container mt-20 mx-auto space-y-6'>
             {data.data.map(m=><BlogBlock key={m.id} blog={m}/>)}
         </div>
+        <div className='flex justify-center'>
+            <Pagination pageSwitchCallback={pageSwitch} pageCount={data.count}/>
+        </div>
+        </>
     )
 }
 export const BlogBlock=({blog})=>{
+    const router=useRouter()
+    const { mutate } = useSWRConfig()
+    const deleteBlog=async(id)=>{
+        const response=await fetch(`/api/blog?id=${id}`,{method:'DELETE'})
+        if(response.status===200){
+            mutate(`/api/blogs?pageIndex=${pageInfo.pageIndex}&pageSize=${pageInfo.pageSize}`)
+        }else{
+            console.log(await response.json())
+        }
+    }
     return (
         <div className=' flex flex-col bg-slate-50 rounded-lg container mx-auto max-w-3xl xl:max-w-none xl: w-3/5'>
             <Link href={`/blog?id=${blog.id}`} passHref>
@@ -31,8 +53,12 @@ export const BlogBlock=({blog})=>{
                </a>
                <div>
 
-               <button className='h-8 w-24 bg-slate-300 text-gray-900 rounded-md'>Read more</button>
-               <button className='h-8 w-24 bg-orange-200 text-gray-600 mx-3 rounded-md'>Edit</button>
+               <button className='h-8 w-24 bg-slate-300 text-gray-900 rounded-md' 
+               onClick={()=>router.push(`/blog?id=${blog.id}`)}>Read more</button>
+               <button className='h-8 w-24 bg-orange-200 text-gray-600 ml-3 rounded-md'
+               onClick={()=>router.push(`/blog/create?editBlogId=${blog.id}`)}>Edit</button>
+               <button className='h-8 w-24 bg-red-400 text-gray-600 mx-3 rounded-md'
+               onClick={()=>deleteBlog(blog.id)}>Delete</button>
                </div>
             </div> 
         </div>

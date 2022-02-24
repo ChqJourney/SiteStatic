@@ -1,19 +1,25 @@
-// import { PrismaClient } from "@prisma/client";
 import prisma from "../../prisma/instance";
 
-function exclude(blog, ...keys) {
-  for (let key of keys) {
-    delete blog[key];
-  }
-  return blog;
-}
 
-// const prisma = new PrismaClient();
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
-    const blogs=await prisma.blog.findMany({where:{createdAt:{gte:new Date("2022-02-17")},isPreview:false}})
-    res.status(200).json({data:blogs})
+    const {pageIndex,pageSize}=req.query
+    const index=parseInt(pageIndex)
+    const size=parseInt(pageSize)
+    const blogs=await prisma.blog.findMany(
+      {
+        where:{createdAt:{gte:new Date("2022-02-17")},isPreview:false},
+        orderBy:{
+          createdAt:"desc"
+        },
+        take:size,
+        skip:(index-1)*size
+      })
+    const blogCount=await prisma.blog.count({
+      where:{createdAt:{gte:new Date("2022-02-17")},isPreview:false}
+    })
+    res.status(200).json({data:blogs,count:Math.ceil(blogCount/size)})
   }else{
 
     res.status(403).json({msg:"not found"})

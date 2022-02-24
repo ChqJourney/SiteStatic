@@ -21,7 +21,7 @@ export async function getStaticProps({locale}) {
     props: {
       ...await serverSideTranslations(locale, ['common', 'footer','header']),
       fallback:{
-        '/api/blogs':{data:blogs}
+        '/api/blogs?pageIndex=1&pageSize=5':{data:blogs}
       }
     },
   };
