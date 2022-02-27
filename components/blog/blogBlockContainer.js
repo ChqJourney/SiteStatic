@@ -5,6 +5,7 @@ import useSWR, { useSWRConfig } from 'swr'
 import { fetcher } from '../../pages/misc/ipsearch'
 import { Pagination } from '../common/pagination'
 import { CircleSpinner } from '../layouts/spinner'
+import ReactHtmlParser from 'html-react-parser'
 
 export const BlogBlockContainer=()=>{
     const [pageInfo,setPageInfo]=useState({pageSize:5,pageIndex:1})
@@ -30,6 +31,13 @@ export const BlogBlockContainer=()=>{
 export const BlogBlock=({blog})=>{
     const router=useRouter()
     const { mutate } = useSWRConfig()
+    let i=0
+    const showContent=ReactHtmlParser(blog.content,{replace:(domNode)=>{
+       i++
+       if(i>15){
+           return <div></div>
+       }
+    }})
     const deleteBlog=async(id)=>{
         const response=await fetch(`/api/blog?id=${id}`,{method:'DELETE'})
         if(response.status===200){
@@ -45,7 +53,7 @@ export const BlogBlock=({blog})=>{
             </Link>
             <span className='class="text-sm font-light text-orange-600 text-center'>{new Date(blog.createdAt).toDateString()}</span>
             <div className='mt-2 text-gray-600 mx-4 border-t border-b border-gray-300  h-32 '>
-            <div className="ql-editor overflow-y-hidden " dangerouslySetInnerHTML={{__html: blog.content}}></div>
+            <div className="ql-editor overflow-y-hidden ">{showContent}</div>
                 </div>
            <div className='flex items-center justify-between mt-4 ml-3 mb-2'>
                <a className='inline-flex items-center mx-2 text-gray-800 hover:underline'>
