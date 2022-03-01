@@ -1,5 +1,6 @@
 [
     {
+        "index":0,
         "id":"image_removebg1",
         "name":"remove background of images",
         "description":"simply remove background of pure background color images",
@@ -7,6 +8,7 @@
         "pic":"/assets/brand-color.svg"
     },
     {
+        "index":1,
         "id":"ipsearch",
         "name":"ip address query",
         "description":"simply remove background of pure background color images",
@@ -14,6 +16,7 @@
         "pic":"/assets/brand-small.png"
     },
     {
+        "index":2,
         "id":"cut image to standard size",
         "name":"cut image to standard size",
         "description":"simply resize or cut images to certain size you want",
@@ -21,6 +24,7 @@
         "icon":""
     },
     {
+        "index":3,
         "id":"image_removebg4",
         "name":"remove background of images",
         "description":"simply remove background of pure background color images",

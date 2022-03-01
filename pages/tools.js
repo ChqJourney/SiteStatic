@@ -16,7 +16,7 @@ function Tools() {
   return (
     <div className="container mx-auto mt-12 w-screen h-full flex flex-col px-10">
       <div className="grid grid-cols-4 gap-4">
-        {tools.map((m) => (
+        {tools.map((m,index) => (
           <ToolCard key={m.id} tool={m}/>
         ))}
       </div>
