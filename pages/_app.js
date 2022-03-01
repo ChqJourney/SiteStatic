@@ -16,12 +16,11 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <UserProvider>
-<AppWrapper>
-
+      <AppWrapper>
         <Layout>
           <Component {...pageProps} />
         </Layout>
-</AppWrapper>
+      </AppWrapper>
     </UserProvider>
   );
 }

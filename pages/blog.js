@@ -5,7 +5,6 @@ import useSWR, { SWRConfig, unstable_serialize } from "swr";
 import { BlogViewer } from "../components/blog/blogViewer";
 import prisma from "../prisma/instance";
 
-// const prisma=new PrismaClient()
 
 
 const Blog=({fallback})=>{
@@ -14,7 +13,6 @@ const Blog=({fallback})=>{
   console.log(id)
     return (
       <SWRConfig value={{fallback}}>
-
         <BlogViewer id={id}/>
       </SWRConfig>
     )

@@ -14,9 +14,7 @@ export default function Tutorial(){
         {id:4,text:"ip tools",href:"/ipsearch"},
     ]
     return (
-       
-
-        <div className="w-full h-screen container mx-auto flex flex-wrap pt-6">
+    <div className="w-full h-screen container mx-auto flex flex-wrap pt-6">
            <SiderBar className="w-3/12 bg-white rounded shadow-lg" menus={siderMenus}/>
            <div className="w-9/12 ml-10">content</div>
         </div>
