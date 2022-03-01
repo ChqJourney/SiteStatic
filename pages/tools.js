@@ -8,18 +8,19 @@ import { ToolCard } from "../components/layouts/toolcard";
 import { AppContext, useAppContext } from "../context/appContext";
 import tools from "../public/site/tools.json";
 
+
 function Tools() {
   function simulateNetworkRequest() {
     return new Promise((resolve) => setTimeout(resolve, 2000));
   }
   return (
-    <div className="container mx-auto mt-12 w-screen h-full flex flex-col">
+    <div className="container mx-auto mt-12 w-screen h-full flex flex-col px-10">
       <div className="grid grid-cols-4 gap-4">
         {tools.map((m) => (
-          <ToolCard key={m.id} tool={m} />
+          <ToolCard key={m.id} tool={m}/>
         ))}
       </div>
-     
+      
 
     </div>
   );

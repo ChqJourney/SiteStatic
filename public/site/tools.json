@@ -4,14 +4,14 @@
         "name":"remove background of images",
         "description":"simply remove background of pure background color images",
         "href":"/images/removebg",
-        "icon":""
+        "pic":"/assets/brand-color.svg"
     },
     {
         "id":"ipsearch",
         "name":"ip address query",
         "description":"simply remove background of pure background color images",
         "href":"/misc/ipsearch",
-        "icon":""
+        "pic":"/assets/brand-small.png"
     },
     {
         "id":"cut image to standard size",
