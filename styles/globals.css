@@ -14,4 +14,26 @@
     }
   }
 
-  
+  @layer base {
+    h1 {
+      @apply text-3xl;
+      @apply font-bold;
+      @apply my-2
+    }
+    h2 {
+      @apply text-2xl;
+      @apply font-semibold;
+      @apply my-1
+    }
+    h3{
+      @apply text-xl;
+    }
+    ul{
+      @apply list-disc;
+      @apply ml-10
+    }
+    strong{
+      @apply font-bold
+    }
+    /* ... */
+  }
