@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 
 export const initialState = {
-  static: { user: {}, theme: "normal" },
+  static: { user: {}, theme: "" },
   dynamic: {
       msgList:[],
       modalOpen:false,

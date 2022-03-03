@@ -5,6 +5,7 @@ import React from "react";
 import { UserProvider } from "@auth0/nextjs-auth0";
 import Layout from "../components/layouts/layout";
 import { AppWrapper } from "../context/appContext";
+import { ThemeProvider } from "next-themes";
 
 function MyApp({ Component, pageProps }) {
   if (
@@ -16,11 +17,13 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <UserProvider>
+      <ThemeProvider attribute="class">
       <AppWrapper>
         <Layout>
           <Component {...pageProps} />
         </Layout>
       </AppWrapper>
+      </ThemeProvider>
     </UserProvider>
   );
 }

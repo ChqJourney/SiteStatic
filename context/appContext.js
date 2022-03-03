@@ -1,8 +1,12 @@
 import { createContext, useContext, useEffect, useMemo, useReducer } from "react";
 import { AppReducer, initialState } from "./appReducer";
+import {useTheme} from 'next-themes'
 
 export const AppContext = createContext();
+
 export function AppWrapper({ children }) {
+   const {theme,setTheme}=useTheme()
+   initialState.static.theme=theme
    const [state,dispatch]= useReducer(AppReducer, initialState);
    const contextValue = useMemo(() => {
     return { state, dispatch };
@@ -13,14 +17,13 @@ export function AppWrapper({ children }) {
           type: "init_stored", 
           value: JSON.parse(localStorage.getItem("static")),
        });
+       setTheme(state.static.theme)
     }
  }, []);
  useEffect(() => {
     if (state.static !== initialState.static) {
        
        localStorage.setItem("static", JSON.stringify(state.static)); 
-    
-       //create and/or set a new localstorage variable called "state"
     }
  }, [state]);
    return (
