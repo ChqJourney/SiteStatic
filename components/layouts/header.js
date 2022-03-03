@@ -29,7 +29,7 @@ function Header() {
   const currentUser = hasMounted ? user : null;
   const router = useRouter();
   const {t}=useTranslation('common')
-  return  (
+  return  (hasMounted&&
     <Disclosure as="nav" className="bg-transparent">
       {({ open }) => (
         <>
@@ -82,10 +82,10 @@ function Header() {
               </div>
 
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                {hasMounted&&<button onClick={()=>setTheme(theme==='light'?'dark':'light')}
+                <button onClick={()=>setTheme(theme==='light'?'dark':'light')}
                  className={`${theme==='light'?'fill-sky-500':'fill-gray-200'} hover:scale-110 hover:fill-purple-400`}>
                   {icon}
-                </button>}
+                </button>
                 <Menu as="div" className="mx-0 relative hidden sm:block">
                   <div>
                     <Menu.Button className="mx-1 flex text-sm rounded-full outline-0 hover:scale-110">
