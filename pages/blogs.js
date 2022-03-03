@@ -19,7 +19,7 @@ function Blogs({fallback}) {
 }
 export async function getStaticProps({locale}) {
   const blogs=await prisma.blog.findMany({where:{createdAt:{gte:new Date("2022-02-17")},isPreview:false}})
- 
+//  console.log(blogs)
   // let newBlogs=blogs.map(m=>{m.createdAt=Math.floor(m.createdAt/1000);m.updatedAt=Math.floor(m.updatedAt/1000);return m;})
   return {
     props: {

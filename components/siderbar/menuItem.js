@@ -1,33 +1,46 @@
 import Link from "next/link";
 import React, { useState } from "react";
+import { useAppContext } from "../../context/appContext";
 import { MenuList } from "./menuList";
 
-export const MenuItem = ({ menuItem,theme }) => {
+export const MenuItem = ({ menuItem, theme }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { state, dispatch } = useAppContext();
   return (
     <li className="flex my-1 py-1">
       <div className="">
         {menuItem.subMenu?.length > 0 ? (
           <button
-            className={`${theme==='dark'?"fill-white":"fill-slate-500"} cursor-pointer`}
+            className={`${
+              theme === "dark" ? "fill-white" : "fill-slate-500"
+            } cursor-pointer`}
             onClick={() => setIsExpanded(!isExpanded)}
           >
-            <Expander  isExpand={isExpanded} />
+            <Expander isExpand={isExpanded} />
           </button>
         ) : (
-            <button className={`${theme==='dark'?"fill-white":"fill-slate-500"} cursor-pointer`}>
-
-                <DotIcon/>
-            </button>
+          <button
+            className={`${
+              theme === "dark" ? "fill-white" : "fill-slate-500"
+            } cursor-pointer`}
+          >
+            <DotIcon />
+          </button>
         )}
       </div>
       <div className="block w-48 border-blue-600 text-left text-slate-700 hover:text-sky-600">
         <div className="flex items-center">
-          <Link href={menuItem.href} passHref>
-            <span className="text-lg align-middle dark:text-white hover:scale-110 font-sans cursor-pointer">
-              {menuItem.text}
-            </span>
-          </Link>
+          <a
+            onClick={() =>
+              dispatch({
+                type:'switch_tutorialId',
+                value:menuItem.href
+              })
+            }
+            className="text-lg align-middle dark:text-white hover:scale-110 font-sans cursor-pointer"
+          >
+            {menuItem.text}
+          </a>
         </div>
 
         {isExpanded && (
@@ -40,12 +53,41 @@ export const MenuItem = ({ menuItem,theme }) => {
   );
 };
 
-const Expander = ({ isExpand,theme }) => {
-  return isExpand?(
-    <svg t="1646325036857" className="h-6 w-8 stroke-2" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1339" width="200" height="200"><path d="M512 685.248l-278.624-278.624 45.248-45.248L512 594.752l233.376-233.376 45.248 45.248z" fill="#181818" p-id="1340"></path></svg>
-    ): (
-        <svg t="1646324991391" className="h-6 w-8 stroke-2" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1203" width="200" height="200"><path d="M625.813 512.24L326 212.426 368.426 170l321.027 321.026c11.716 11.716 11.716 30.711 0 42.427L368.426 854.479 326 812.053 625.813 512.24z" p-id="1204"></path></svg>
-    );
+const Expander = ({ isExpand, theme }) => {
+  return isExpand ? (
+    <svg
+      t="1646325036857"
+      className="h-6 w-8 stroke-2"
+      viewBox="0 0 1024 1024"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      p-id="1339"
+      width="200"
+      height="200"
+    >
+      <path
+        d="M512 685.248l-278.624-278.624 45.248-45.248L512 594.752l233.376-233.376 45.248 45.248z"
+        fill="#181818"
+        p-id="1340"
+      ></path>
+    </svg>
+  ) : (
+    <svg
+      t="1646324991391"
+      className="h-6 w-8 stroke-2"
+      viewBox="0 0 1024 1024"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      p-id="1203"
+      width="200"
+      height="200"
+    >
+      <path
+        d="M625.813 512.24L326 212.426 368.426 170l321.027 321.026c11.716 11.716 11.716 30.711 0 42.427L368.426 854.479 326 812.053 625.813 512.24z"
+        p-id="1204"
+      ></path>
+    </svg>
+  );
 };
 const ExpandStatusIcon = () => {
   return (
@@ -65,7 +107,7 @@ const ExpandStatusIcon = () => {
     </svg>
   );
 };
-const DotIcon = ({theme}) => {
+const DotIcon = ({ theme }) => {
   return (
     <svg
       t="1645008815228"

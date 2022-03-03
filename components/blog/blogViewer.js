@@ -8,8 +8,8 @@ import Link from "next/link";
 
 export const BlogViewer = ({ id }) => {
   console.log(id);
-  const { data, err } = useSWR(["/api/blog", id], fetcher);
-  const router = useRouter();
+  
+  const { data, err } = useSWR(`/api/blog?id=${id}`, fetcher,{fallbackData:{data:{}}});
   if (!data) <CircleSpinner />;
   if (data)
     return (

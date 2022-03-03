@@ -1,16 +1,25 @@
-import dynamic from "next/dynamic";
+
 
 export const initialState = {
   static: { user: {}, theme: "" },
   dynamic: {
       msgList:[],
       modalOpen:false,
-      modalChild:{}
+      modalChild:{},
+      tutorialId:''
   },
 };
 export const AppReducer = (state, action) => {
   switch (action.type) {
-    
+    case 'switch_tutorialId':{
+      return {
+        ...state,
+        dynamic:{
+          ...state.dynamic,
+          tutorialId:action.value
+        }
+      }
+    }
     case 'handle_modal':{
       return {
         ...state,
