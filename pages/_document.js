@@ -27,7 +27,7 @@ class MyDocument extends Document {
             }}
           />
         </Head>
-        <body className='font-sans antialiased text-gray-600 dark:bg-gray-700'>
+        <body className='font-sans antialiased text-gray-600 dark:bg-gray-700 dark:text-white'>
           <Main />
           <NextScript />
         </body>

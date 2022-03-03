@@ -4,14 +4,19 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import heroImg from "/public/assets/hero-img.jpeg";
 import ip from "/public/assets/ipsearch.png";
-import { Router } from "next/router";
+import { Router, useRouter } from "next/router";
 import Image from "next/image";
 import { ContentCard } from "../components/layouts/contentCard";
+import {useTheme} from 'next-themes'
+import { useMounted } from "../components/hooks/useMounted";
 
 const fetcher=(...args)=>fetch(...args).then(data=>data.json())
 
 function Home() {
   const { t } = useTranslation("common");
+  const { hasMounted } = useMounted(false);
+  const {theme}=useTheme()
+  const router=useRouter()
   const svgEle=<svg t="1644591337321" className=" fill-sky-500 hover:fill-purple-400 hover:shadow-2xl hover:shadow-gray-300 w-36 h-36" fill="none"
   viewBox="0 0 1024 1024"
   stroke="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6957"><path d="M414.016 705.984c-47.552 0-121.984-188.032-158.016-112-14.976 31.616-39.936 99.008-64 152.96V768a64 64 0 0 0 64 64h512c35.392 0 64-28.608 64-64v-29.824c-36.16-81.408-83.008-216.32-128-268.16-92.032-105.984-201.984 235.968-289.984 235.968zM832 0H192a192 192 0 0 0-192 192v640c0 105.984 85.952 192 192 192h640c105.984 0 192-86.016 192-192V192c0-106.048-86.016-192-192-192z m64 832c0 35.392-28.608 64-64 64H192a64 64 0 0 1-64-64V192c0-35.328 28.672-64 64-64h640a64 64 0 0 1 64 64v640zM288 384c53.056 0 96-42.944 96-96S341.056 192 288 192 192 234.944 192 288s42.944 96 96 96z"  p-id="6958"></path></svg>
@@ -28,21 +33,21 @@ function Home() {
           <div className="relative z-10 pb-8 sm:pb-12 md:pb-16 lg:max-w-2xl lg:w-full lg:pb-20 xl:pb-24">
             <div className="w-full mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-24">
               <div className="text-center lg:text-left">
-                <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-3xl md:text-4xl">
-                  <span className="block xl:inline">{t("herotitle1")}</span>
-                  <span className="block text-indigo-600 mx-2 xl:inline">
+                <h1 className="tracking-tight text-xl md:text-2xl sm:text-2xl font-extrabold text-gray-900 lg:text-3xl">
+                  <span className="block dark:text-white xl:inline">{t("herotitle1")}</span>
+                  <span className="block text-indigo-300 mx-2 xl:inline">
                     {t("herotitle2")}
                   </span>
                 </h1>
-                <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                <p className="mt-3 text-base text-gray-500 dark:text-gray-200 sm:mt-5 sm:text-lg sm:max-w-md sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
                   {t("heroDescription")}
                 </p>
-                <div className="mt-28 sm:mt-44 sm:flex sm:justify-center lg:justify-start">
-                  <button className="btn-color mx-4 my-2">
+                <div className="mt-16 lg:mt-44 sm:flex sm:justify-center lg:justify-start">
+                  <button className="w-36 md:w-48 btn-color mx-4 my-2" onClick={()=>router.push('/tools','/tools',{locale:router.locale})}>
                     {t("startBtn")}
                   </button>
 
-                  <button className="btn-secondary mx-4 my-2">
+                  <button className="w-36 md:w-48 btn-secondary mx-4 my-2" onClick={()=>router.push('/tutorial','/tutorial',{locale:router.locale})}>
                     {t("tutorialBtn")}
                   </button>
                 </div>
@@ -50,21 +55,22 @@ function Home() {
             </div>
           </div>
         </div>
-        <div className="relative hidden rounded-2xl max-w-5xl max-h-96 lg:block lg:absolute lg:inset-y-0 z-0 w-full right-6 lg:w-1/2">
-          <Image
+        <div className="relative hidden rounded-2xl max-w-3xl max-h-96 lg:block lg:absolute lg:inset-y-0 z-0 w-full right-6 sm:w-1/3 lg:w-1/2">
+          {hasMounted&&<Image
             src={heroImg}
             quality="100"
             alt="hero image"
-            className=" mr-4 rounded-3xl"
+            className={`mr-4 filter ${theme==='dark'?'brightness-50':''} rounded-3xl`}
             layout="fill"
             loading="lazy"
-          ></Image>
+          ></Image>}
         </div>
       </div>
         <div className="absolute bg-lime-500 w-48 h-48 left-24 xl:left-[800px] top-64 rounded-full bg-blend-multiply blur-3xl"></div>
-      <div className="absolute bg-amber-500 w-24 h-24  sm:w-48 sm:h-48 left-24 xl:left-[680px] top-36 rounded-full bg-blend-multiply blur-2xl"></div>
+      <div className="absolute bg-amber-500 w-24 h-24  sm:w-48 sm:h-48 left-24 xl:left-[680px] top-24 rounded-full bg-blend-multiply blur-2xl"></div>
       <div className="absolute bg-sky-500 w-24 sm:w-72 h-24 sm:h-72 left-48 xl:left-[400px] top-64 rounded-full bg-blend-multiply opacity-75 blur-2xl"></div>
-      <div className="mx-auto px-4 text-2xl sm:text-3xl text-center font-medium text-sky-800 my-4">Existing tools as below, please waiting for more exciting stuff......</div>
+      <div className="absolute lg:hidden bg-orange-500 w-10 sm:w-48 h-10 sm:h-48 right-24 xl:left-[400px] top-48 rounded-full bg-blend-multiply opacity-75 blur-2xl"></div>
+      <div className="mx-auto px-4 text-2xl sm:text-3xl text-center font-medium text-sky-800 dark:text-sky-200 my-4">Existing tools as below, please waiting for more exciting stuff......</div>
       <div className="grid top-12 px-10 grid-cols-4 gap-4 max-w-7xl mt-10 mx-auto">
          <ContentCard picEle={svgEle} 
          title={"awesome background remove tool for images"}
@@ -72,7 +78,7 @@ function Home() {
          href={"/images/removebg"}
          />
          <ContentCard picEle={ipSVG} 
-         title={"easliy get your own ip or any ip you want"}
+         title={"easliy get geolocation of your own ip or any ip you want"}
          description={"if you wanna know what ip you're using, or wanna know the geolocation information of the certain IP you see. just come here do onc click"}
          href={"/misc/ipsearch"}/>
         </div>
