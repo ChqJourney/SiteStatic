@@ -22,12 +22,20 @@ export default function Tutorial({fallback}){
         {id:4,text:"ip tools",href:"/ipsearch"},
     ]
     return (hasMounted&&
-    <div className="w-full h-screen container mx-auto flex pt-6">
+    <div className="w-full  h-screen relative flex justify-center pt-6">
+      <button className="absolute left-2 top-0 block lg:hidden border rounded-full w-10 h-10">
+        
+      </button>
+      <div className="max-w-7xl container mx-auto flex justify-center">
+            <div className="w-3/12 hidden lg:flex ml-0">
+
            <SiderBar menus={siderMenus} theme={theme} />
+            </div>
            <div className=" w-9/12 ml-10">
              
              {state.dynamic.tutorialId&&<BlogViewer id={state.dynamic.tutorialId}/>}
            </div>
+      </div>
         </div>
     )
 }

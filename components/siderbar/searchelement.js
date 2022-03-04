@@ -13,7 +13,7 @@ export const SearchElement = () => {
           type="text"
           name="price"
           id="price"
-          className=" h-8 outline-0 ring-1 focus:ring-orange-400 block active:border-0 active:ring-0 w-11/12 pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
+          className=" h-8 outline-0 ring-1 focus:ring-orange-400 block active:border-0 active:ring-0 w-11/12 pl-8 pr-12 sm:text-sm border-gray-300 rounded-md"
           placeholder="Quick search..."
         />
       </div>
