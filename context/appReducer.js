@@ -6,6 +6,7 @@ export const initialState = {
       msgList:[],
       modalOpen:false,
       modalChild:{},
+      modalPositon:'',
       tutorialId:''
   },
 };
@@ -26,7 +27,8 @@ export const AppReducer = (state, action) => {
         dynamic:{
           ...state.dynamic,
           modalOpen:action.value.status,
-          modalChild:action.value.child
+          modalChild:action.value.child,
+          modalPostion:action.value.postion
         }
       }
     }

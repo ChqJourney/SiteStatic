@@ -1,5 +1,6 @@
 // import { PrismaClient } from "@prisma/client";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import Link from "next/link";
 import { useRouter } from "next/router"
 import useSWR, { SWRConfig, unstable_serialize } from "swr";
 import { BlogViewer } from "../components/blog/blogViewer";
@@ -14,6 +15,14 @@ const Blog=({fallback})=>{
     return (
       <SWRConfig value={{fallback}}>
         <BlogViewer id={id}/>
+        <div className="flex mt-10 justify-center items-center">
+          <Link passHref href="/blogs">
+            <a href="#" className="font-serif text-gray-600 hover:text-sky-600">
+              {" "}
+              return to blog list
+            </a>
+          </Link>
+        </div>
       </SWRConfig>
     )
 }

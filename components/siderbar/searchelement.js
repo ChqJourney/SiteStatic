@@ -2,7 +2,7 @@ import React from "react";
 
 export const SearchElement = () => {
   return (
-    <div className="pointer-events-auto">
+    <div className="pointer-events-auto mb-5">
       <div className="mt-1 px-2 relative border-0 rounded-md">
         <div className="absolute inset-y-0 left-1 pl-3 flex items-center pointer-events-none">
           <span className="text-gray-200 text-sm">

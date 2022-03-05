@@ -26,10 +26,13 @@ export const BlogBlockContainer = ({ user }) => {
   if (err) return <p>error...</p>;
   return (
     <>
-      <div className="container mt-20 mx-auto space-y-6">
+      <div className="container mt-20 mx-auto ">
+        <div className="flex flex-col justify-center mx-1 space-y-6">
+
         {data.data.map((m) => (
           <BlogBlock isAuth={isAuthed} key={m.id} blog={m} />
-        ))}
+          ))}
+          </div>
       </div>
       <div className="flex justify-center">
         <Pagination pageSwitchCallback={pageSwitch} pageCount={data.count} />
@@ -41,6 +44,7 @@ export const BlogBlock = ({ blog, isAuth }) => {
   const blogContainer = useRef();
   const router = useRouter();
   const { mutate } = useSWRConfig();
+  const [showBtn,setShowBtn]=useState(false)
   let i = 0;
   const showContent = ReactHtmlParser(blog.content, {
     replace: (domNode) => {
@@ -54,7 +58,7 @@ export const BlogBlock = ({ blog, isAuth }) => {
     if (blogContainer.current) {
       const { scrollTop, scrollHeight, clientHeight } = blogContainer.current;
       if (scrollTop + clientHeight >= scrollHeight) {
-        console.log("reached bottom");
+        setShowBtn(true)
       }
     }
   }
@@ -69,11 +73,11 @@ export const BlogBlock = ({ blog, isAuth }) => {
     }
   };
   return (
-    <div className=" flex flex-col bg-slate-50 rounded-lg container mx-auto max-w-3xl xl:max-w-none xl: w-3/5">
+    <div className=" flex flex-col bg-slate-50 dark:bg-gray-800 rounded-lg container mx-auto max-w-3xl xl:max-w-none w-full xl:w-3/5">
       <Link href={`/blog?id=${blog.id}`} passHref>
         <a
           href=""
-          className="block mt-2 text-xl px-4 font-bold text-center text-gray-600 capitalize sm:text-2xl md:text-3xl hover:underline cursor-pointer hover:text-blue-500"
+          className="block mt-2 text-xl px-4 font-bold text-center text-gray-600 dark:text-gray-300 capitalize sm:text-2xl md:text-3xl hover:underline cursor-pointer hover:text-blue-500"
         >
           {blog.title}
         </a>
@@ -81,7 +85,7 @@ export const BlogBlock = ({ blog, isAuth }) => {
       <span className='class="text-sm font-light text-orange-600 text-center'>
         {new Date(blog.createdAt).toDateString()}
       </span>
-      <div className="mt-2 text-gray-600 mx-4 border-t border-b border-gray-300  h-32 ">
+      <div className="mt-2 text-gray-600 dark:text-gray-300 mx-4 border-t border-b border-gray-300  h-32 ">
         <div
           className="ql-editor overflow-y-auto "
           ref={blogContainer}
@@ -94,12 +98,12 @@ export const BlogBlock = ({ blog, isAuth }) => {
         <a className="inline-flex items-center mx-2 text-gray-800 hover:underline">
           <h3 className="font-medium font-sans text-orange-300">
             by{" "}
-            <span className="text-gray-800 font-thin"> {blog.createdBy}</span>
+            <span className="text-gray-800 dark:text-gray-200 font-thin"> {blog.createdBy}</span>
           </h3>
         </a>
-        <div>
+        {showBtn&&<div>
           <button
-            className="h-8 w-24 bg-slate-300 text-gray-900 ml-3 rounded-md"
+            className="h-8 w-24 bg-slate-300 dark:bg-slate-500 text-gray-900 ml-3 rounded-md"
             onClick={() => router.push(`/blog?id=${blog.id}`)}
           >
             Read more
@@ -120,7 +124,7 @@ export const BlogBlock = ({ blog, isAuth }) => {
           >
             Delete
           </button>
-        </div>
+        </div>}
       </div>
     </div>
   );

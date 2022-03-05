@@ -7,10 +7,9 @@ import { Modal } from "./modal";
 function Layout({ children, menus }) {
   const { state, dispatch } = useAppContext();
   const setMsgList = (list) => dispatch({ type: "set_msgList", value: list });
+  console.dir(state?.dynamic?.modalChild)
   return (
-    // <AppWrapper>
-
-    <div className="flex flex-col h-screen justify-between">
+    <div className={`flex flex-col relative h-screen justify-between ${state.dynamic.modalOpen&&"overflow-hidden"}`}>
       <Toast
         toastlist={state?.dynamic?.msgList}
         location="upleft"
@@ -18,16 +17,15 @@ function Layout({ children, menus }) {
       />
 
       <Modal
-        isOpen={state.dynamic.modalOpen} 
+        isOpen={state.dynamic.modalOpen} postion={state.dynamic.modalPostion} 
         handleClose={()=>dispatch({ type: "handle_modal", value:{status:false} })}
       >
-        {state.dynamic.modalChild}
+        {state?.dynamic?.modalChild}
       </Modal>
       <Header menus={menus} />
-      <main className="mb-auto">{children}</main>
+      <main className="mb-0 overflow-x-auto">{children}</main>
       <Footer />
     </div>
-    // </AppWrapper>
   );
 }
 export default Layout;

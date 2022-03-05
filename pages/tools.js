@@ -14,12 +14,15 @@ function Tools() {
     return new Promise((resolve) => setTimeout(resolve, 2000));
   }
   return (
-    <div className="container mx-auto mt-12 w-screen h-full flex flex-col px-10">
+    <div className="container mx-auto mt-12 w-screen h-full min-h-screen flex flex-col px-10">
+      <div className="max-w-7xl container mx-auto flex justify-center">
+
       <div className="grid grid-cols-4 gap-4">
         {tools.map((m,index) => (
-          <ToolCard key={m.id} tool={m}/>
-        ))}
+          <ToolCard key={m.id} tabIndex={index} tool={m}/>
+          ))}
       </div>
+          </div>
       
 
     </div>

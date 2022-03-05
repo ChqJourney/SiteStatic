@@ -22,14 +22,7 @@ export const BlogViewer = ({ id }) => {
           className="ql-editor text-base"
           dangerouslySetInnerHTML={{ __html: data.data.content }}
         ></div>
-        <div className="flex mt-10 justify-center items-center">
-          <Link passHref href="/blogs">
-            <a href="#" className="font-serif text-gray-600 hover:text-sky-600">
-              {" "}
-              return to blog list
-            </a>
-          </Link>
-        </div>
+        
       </div>
     );
 };
