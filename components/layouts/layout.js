@@ -9,7 +9,7 @@ function Layout({ children, menus }) {
   const setMsgList = (list) => dispatch({ type: "set_msgList", value: list });
   console.dir(state?.dynamic?.modalChild)
   return (
-    <div className={`flex flex-col relative h-screen justify-between ${state.dynamic.modalOpen&&"overflow-hidden"}`}>
+    <div className={`flex flex-col relative h-full justify-between ${state.dynamic.modalOpen&&"overflow-hidden"}`}>
       <Toast
         toastlist={state?.dynamic?.msgList}
         location="upleft"
@@ -23,7 +23,7 @@ function Layout({ children, menus }) {
         {state?.dynamic?.modalChild}
       </Modal>
       <Header menus={menus} />
-      <main className="mb-0 overflow-x-auto">{children}</main>
+      <main className="mb-auto overflow-x-auto">{children}</main>
       <Footer />
     </div>
   );

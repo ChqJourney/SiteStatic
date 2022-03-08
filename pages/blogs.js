@@ -10,8 +10,12 @@ function Blogs({fallback}) {
   const {state,dispatch}=useAppContext()
   return (
     <SWRConfig value={{fallback}}>
+      <div className="min-h-screen">
+
       <div className="text-3xl font-semibold text-center mt-20">Recently blogs</div>
       <BlogBlockContainer/>
+      
+      </div>
       
     </SWRConfig>
    

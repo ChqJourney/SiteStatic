@@ -34,9 +34,9 @@ export const BlogBlockContainer = ({ user }) => {
           ))}
           </div>
       </div>
-      <div className="flex justify-center">
+      {data.data.length!=0?<div className="flex justify-center">
         <Pagination pageSwitchCallback={pageSwitch} pageCount={data.count} />
-      </div>
+      </div>:<div className="flex justify-center">no blogs yet</div>}
     </>
   );
 };
