@@ -1,6 +1,7 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { IPBox } from "../../components/tools/ipbox";
 import { SWRConfig } from "swr";
+import Head from 'next/head'
 
 
 
