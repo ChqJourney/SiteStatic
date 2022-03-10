@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Canvas from "../../components/tools/canvas";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import Head from "next/head";
 
 export default function RemoveBg() {
   const [imageData, setImageData] = useState({file:'', width: 500, height: 400,isJobDone:false })
@@ -125,7 +126,10 @@ export default function RemoveBg() {
   }
 
   return (
-   
+    <>
+   <Head>
+     <title>remove background tool</title>
+   </Head>
 
     <div className="h-screen my-10 mx-auto w-11/12 sm:w-10/12 lg:w-8/12">
       <div className="text-center  text-lg lg:text-2xl font-medium text-gray-600">please upload your picture</div>
@@ -167,7 +171,7 @@ export default function RemoveBg() {
         </button>
       </div>
     </div>
-   
+   </>
   );
 }
 

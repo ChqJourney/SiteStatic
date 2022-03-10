@@ -1,5 +1,11 @@
+import Head from "next/head";
+
 export default function Policy() {
   return (
+    <>
+    <Head>
+      <title>Policy here</title>
+    </Head>
     <div className="container mx-auto font-sans mt-10 max-w-4xl">
       <h1 className="text-3xl font-bold">Privacy Policy</h1>
       <p className="text-sm text-gray-400">Last updated: March 02, 2022</p>
@@ -485,5 +491,6 @@ export default function Policy() {
         <li>By email: patrickchq@gmail.com</li>
       </ul>
     </div>
+    </>
   );
 }

@@ -7,6 +7,7 @@ import { BlogViewer } from "../components/blog/blogViewer"
 import { useState } from "react"
 import { useAppContext } from "../context/appContext"
 import { SideBarContainer } from "../components/siderbar/sideBarContainer"
+import Head from "next/head"
 
 export const siderMenus=[
   {id:1,text:"ip tools",subMenu:[
@@ -25,6 +26,10 @@ export default function Tutorial({fallback}){
   const {state}=useAppContext()
     
     return (hasMounted&&
+      <>
+      <Head>
+      <title>Tutorial here</title>
+    </Head>
     <div className="w-full  h-screen relative flex justify-center pt-6">
       
       <div className="max-w-7xl container mx-auto flex justify-center">
@@ -34,6 +39,7 @@ export default function Tutorial({fallback}){
            </div>
       </div>
         </div>
+        </>
     )
 }
 

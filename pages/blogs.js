@@ -4,11 +4,16 @@ import prisma from "../prisma/instance";
 import { BlogBlockContainer } from "../components/blog/blogBlockContainer";
 import { useAppContext } from "../context/appContext";
 import { generateToast } from "../components/common/toast";
+import Head from "next/head";
 
 
 function Blogs({fallback}) {
   const {state,dispatch}=useAppContext()
   return (
+    <>
+    <Head>
+      <title>Blogs here</title>
+    </Head>
     <SWRConfig value={{fallback}}>
       <div className="min-h-screen">
 
@@ -18,7 +23,7 @@ function Blogs({fallback}) {
       </div>
       
     </SWRConfig>
-   
+   </>
   );
 }
 export async function getStaticProps({locale}) {

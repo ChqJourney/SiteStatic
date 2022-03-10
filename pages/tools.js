@@ -1,4 +1,5 @@
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import Head from "next/head";
 import { useContext, useState } from "react";
 import { SpinButton } from "../components/common/spinButton";
 import { generateToast, Toast } from "../components/common/toast";
@@ -14,6 +15,10 @@ function Tools() {
     return new Promise((resolve) => setTimeout(resolve, 2000));
   }
   return (
+    <>
+    <Head>
+      <title>Tools here</title>
+    </Head>
     <div className="container mx-auto mt-12 w-screen h-full min-h-screen flex flex-col px-10">
       <div className="max-w-7xl container mx-auto flex justify-center">
 
@@ -23,9 +28,9 @@ function Tools() {
           ))}
       </div>
           </div>
-      
 
     </div>
+      </>
   );
 }
 

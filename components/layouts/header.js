@@ -222,7 +222,7 @@ function Header() {
                   </Menu>
                 ) : (
                   <Menu as="div" className="mx-2 relative">
-                    <Menu.Button className="bg-gray-100 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                    <Menu.Button className="dark:bg-gray-600 bg-slate-200 px-3 py-1 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                   <Link href={`/api/auth/login?returnTo=${router.pathname}`} passHref>
                   
                     <a
