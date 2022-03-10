@@ -83,7 +83,7 @@ function Header() {
 
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button onClick={()=>setTheme(theme==='light'?'dark':'light')}
-                 className={`${theme==='light'?'fill-sky-500':'fill-gray-200'} hover:scale-110 hover:fill-purple-400`}>
+                 className={`${theme==='light'?'fill-sky-500':'fill-gray-200'} hidden sm:block hover:scale-110 hover:fill-purple-400`}>
                   {icon}
                 </button>
                 <Menu as="div" className="mx-0 relative hidden sm:block">
@@ -222,7 +222,7 @@ function Header() {
                   </Menu>
                 ) : (
                   <Menu as="div" className="mx-2 relative">
-                    <Menu.Button className="dark:bg-gray-600 bg-slate-200 px-3 py-1 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                    <Menu.Button className="dark:bg-gray-600 bg-slate-200 px-2 py-1 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                   <Link href={`/api/auth/login?returnTo=${router.pathname}`} passHref>
                   
                     <a
@@ -276,7 +276,13 @@ function Header() {
                           d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
                         />
                       </svg>
-                      <span className="text-center ml-4">{router.locale==='zh'?"中文":"English"}</span>
+                      <span className="text-center ml-4">{router.locale==='zh'?"English":"中文"}</span>
+              </button>
+              <button onClick={()=>setTheme(theme==='light'?'dark':'light')}
+                 className={`${theme==='light'?'fill-sky-500':'fill-gray-200'} mx-3 flex hover:scale-110 hover:fill-purple-400`}>
+              <span className="sr-only">Switch theme</span>
+                     {icon}
+                      <span className="text-center ml-5">{theme==='light'?"Dark":"Light"}</span>
               </button>
             </div>
           </Disclosure.Panel>

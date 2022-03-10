@@ -26,7 +26,7 @@ export const BlogBlockContainer = ({ user }) => {
   if (err) return <p>error...</p>;
   return (
     <>
-      <div className="container mt-20 mx-auto ">
+      <div className="container mt-10 md:mt-20 mx-auto ">
         <div className="flex flex-col justify-center mx-1 space-y-6">
 
         {data.data.map((m) => (

@@ -17,7 +17,7 @@ function Blogs({fallback}) {
     <SWRConfig value={{fallback}}>
       <div className="min-h-screen">
 
-      <div className="text-3xl font-semibold text-center mt-20">Recently blogs</div>
+      <div className="text-3xl font-semibold text-center mt-10 md:mt-20">Recently blogs</div>
       <BlogBlockContainer/>
       
       </div>
