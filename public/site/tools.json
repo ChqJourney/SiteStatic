@@ -5,15 +5,15 @@
         "name":"remove background of images",
         "description":"simply remove background of pure background color images",
         "href":"/images/removebg",
-        "pic":"/assets/brand-color.svg"
+        "pic":"/assets/removebg-trans.png"
     },
     {
         "index":1,
         "id":"ipsearch",
         "name":"ip address query",
-        "description":"simply remove background of pure background color images",
+        "description":"get geolocation for any IP address",
         "href":"/misc/ipsearch",
-        "pic":"/assets/brand-small.png"
+        "pic":"/assets/iptool-trans.png"
     },
     {
         "index":2,
