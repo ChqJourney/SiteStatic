@@ -19,7 +19,7 @@ jobs:
     - name: run command via ssh
       uses: fifsky/ssh-action@v0.0.3
       with:
-        command: /root/RemoteNetworking/go.mjs
+        command: /root/RemoteWorking/go.mjs
         host: ${{ secrets.HOST }}
         user: root
         pass: ${{ secrets.pass }}
