@@ -16,9 +16,10 @@ jobs:
         node-version: [16.x]
     steps:
     - name: run command via ssh
-      uses: fifsky/ssh-action@master
+      uses: D3rHase/ssh-command-action@v0.2
       with:
-        command: /root/RemoteNetworking/go.mjs
-        host: ${{ secrets.HOST }}
-        user: root
-        key: ${{ secrets.PRIVATE_KEY}}
+        COMMAND: /root/RemoteNetworking/go.mjs
+        HOST: ${{ secrets.HOST }}
+        PORT: 22
+        USER: root
+        PRIVATE_SSH_KEY: ${{ secrets.PRIVATE_KEY}}
