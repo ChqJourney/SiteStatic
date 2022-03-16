@@ -66,7 +66,7 @@ const PageIndexBlock = ({ currentIndex, pageNum, gotoPage }) => {
     <button
       onClick={() => gotoPage(pageNum)}
       className={`w-8 h-8 border flex justify-center items-center mx-1 rounded-sm ${
-        currentIndex == pageNum ? "ring-1 ring-orange-400" : ""
+        currentIndex == pageNum ? "border-1 border-orange-600" : ""
       }`}
     >
       {pageNum}

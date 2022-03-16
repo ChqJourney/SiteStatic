@@ -51,18 +51,18 @@ export default function IdCut() {
  
   return (
   <div className="container mx-auto mt-10 flex-col flex max-w-7xl">
-        <div className="text-2xl font-medium text-gray-600 text-center">
+        <div className="text-2xl font-medium text-center">
           choose size
         </div>
-        <div className="grid grid-cols-4 max-w-7xl gap-4 p-10">
-          <SizeBox title={"1 inch"} description={"25 mm x 35 mm"} />
-          <SizeBox title={"1 inch"} description={"25 mm x 35 mm"} />
-          <SizeBox title={"1 inch"} description={"25 mm x 35 mm"} />
-          <SizeBox title={"1 inch"} description={"25 mm x 35 mm"} />
+        <div className="grid grid-cols-4 max-w-7xl gap-4 justify-center p-10">
+          <SizeBox index={0} title={"1 inch"} description={"25 mm x 35 mm"} />
+          <SizeBox index={1} title={"2 inch"} description={"50 mm x 35 mm"} />
+          <SizeBox index={2} title={"1 inch"} description={"25 mm x 35 mm"} />
+          <SizeBox index={3} title={"1 inch"} description={"25 mm x 35 mm"} />
         </div>
         <div className="max-w-7xl px-10">
           <div className="static lg:flex bg-gray-200 rounded-md p-2">
-            <div className="p-4 m-4 bg-white rounded-md flex-col mx-auto relative overflow-auto flex  lg:w-3/12 items-center">
+            <div className="p-4 m-4 bg-white rounded-md flex-col mx-auto relative overflow-auto flex w-full h-96 lg:w-3/12 items-center">
               <p className="top-2">uploaded picture</p>
               <div className="w-full h-full rounded-md border flex items-center border-gray-800">
                 <img
